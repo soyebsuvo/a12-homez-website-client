@@ -13,8 +13,10 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 // import AdbIcon from '@mui/icons-material/Adb';
 import logo from "../../assets/header-logo.svg"
+import { FaBars } from "react-icons/fa";
 
-const pages = ['Products', 'Pricing', 'Blog'];
+
+const pages = ['Home', 'All Properties', 'Dashboard'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function Navbar() {
@@ -37,42 +39,47 @@ function Navbar() {
     };
 
     return (
-        <AppBar className='md:px-16' sx={{ background: "none", backgroundColor : "rgba(0,0,0,.4)", color: "black" }} position="fixed">
-            <Container maxWidth="xl">
+        <div className='max-w-7xl mx-auto'>
+            <AppBar className='md:px-16' sx={{ background: "none", color: "black", boxShadow: "none" }} position="fixed">
+            <Container>
                 <Toolbar disableGutters>
-                    
+
                     {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
-                    <div className='flex-1'>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="a"
-                        sx={{
-                            mr: 2,
-                            display: { xs: 'none', md: 'flex', gap : 0 },
-                            fontFamily: 'monospace',
-                            fontWeight: 700,
-                            // letterSpacing: '.3rem',
-                            color: 'inherit',
-                            textDecoration: 'none',
-                        }}
-                    >
-                        <img className='w-32 z-10 -mr-2' src={logo} alt="" />
-                    </Typography>
+                    <div className=''>
+                        <Typography
+                            variant="h6"
+                            noWrap
+                            component="a"
+                            sx={{
+                                mr: 2,
+                                display: { xs: 'none', md: 'flex', gap: 0 },
+                                fontFamily: 'monospace',
+                                fontWeight: 700,
+                                // letterSpacing: '.3rem',
+                                color: 'inherit',
+                                textDecoration: 'none',
+                            }}
+                        >
+                            <img className='w-32 z-10' src={logo} alt="" />
+                        </Typography>
                     </div>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+
                         <IconButton
                             size="large"
                             aria-label="account of current user"
                             aria-controls="menu-appbar"
                             aria-haspopup="true"
                             onClick={handleOpenNavMenu}
-                            color="inherit"
+                            color="white"
+                            className='z-20'
                         >
                             {/* <MenuIcon /> */}
+                            <FaBars className='text-white'></FaBars>
                         </IconButton>
                         <Menu
+                            color=''
                             id="menu-appbar"
                             anchorEl={anchorElNav}
                             anchorOrigin={{
@@ -114,14 +121,14 @@ function Navbar() {
                             textDecoration: 'none',
                         }}
                     >
-                        LOGO
+                        <img className='w-32 z-10' src={logo} alt="" />
                     </Typography>
-                    <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                    <Box sx={{ display: { xs: 'none', md: 'flex' }, flexGrow: 2, marginLeft: "40px" }}>
                         {pages.map((page) => (
                             <Button
                                 key={page}
                                 onClick={handleCloseNavMenu}
-                                sx={{ my: 2, color: 'black', display: 'block' }}
+                                sx={{ my: 2, color: 'white', display: 'block', fontWeight: "bold" }}
                             >
                                 {page}
                             </Button>
@@ -159,7 +166,7 @@ function Navbar() {
                     </Box>
                 </Toolbar>
             </Container>
-        </AppBar>
+        </AppBar></div>
     );
 }
 export default Navbar;
