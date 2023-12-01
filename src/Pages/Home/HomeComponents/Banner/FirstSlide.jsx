@@ -1,4 +1,3 @@
-import image from '../../../../assets/home-9.jpg';
 import { WiDirectionUpRight } from 'react-icons/wi';
 import { BiBath, BiBed } from "react-icons/bi";
 import { SlShareAlt } from "react-icons/sl";
@@ -8,7 +7,7 @@ import { useLocation } from 'react-router-dom';
 
 
 
-export default function FirstSlide() {
+export default function FirstSlide({image}) {
     const location = useLocation();
     const isProperty = location.pathname === '/allproperties'
     return (

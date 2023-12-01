@@ -1,3 +1,4 @@
+import image from '../../../../assets/home-9.jpg';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -14,7 +15,7 @@ export default function Banner() {
         className="mySwiper"
       >
         <SwiperSlide>
-            <FirstSlide></FirstSlide>
+            <FirstSlide image={image}></FirstSlide>
         </SwiperSlide>
         <SwiperSlide>Slide 2</SwiperSlide>
       </Swiper>
