@@ -39,7 +39,7 @@ function Navbar() {
         setAnchorElUser(null);
     };
     const location = useLocation();
-    const isHome = location.pathname === '/'
+    const isHome = location.pathname === '/' || 'allproperties'
     return (
         <div className='max-w-7xl mx-auto'>
             <AppBar className='md:px-16' sx={{ background: "none", color: "black", boxShadow: "none", backgroundColor : 'rgba(0,0,0,.5)' }} position={isHome ? `absolute` : `static`}>

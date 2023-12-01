@@ -4,7 +4,7 @@ import Advertisement from "./Advertisement"
 export default function Advertisements() {
     const [ add , setAdd ] = useState([])
     useEffect(() => {
-        fetch('./addvertise.json')
+        fetch('http://localhost:5000/advertisements')
         .then(res => res.json())
         .then(data => setAdd(data))
     } , [])
