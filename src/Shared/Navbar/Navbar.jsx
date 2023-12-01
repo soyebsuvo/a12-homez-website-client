@@ -17,7 +17,7 @@ import { FaBars } from "react-icons/fa";
 import { NavLink, useLocation } from 'react-router-dom';
 
 
-const pages = ['Home', 'All Properties', 'Dashboard'];
+// const pages = ['Home', 'All Properties', 'Dashboard'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function Navbar() {
@@ -104,11 +104,30 @@ function Navbar() {
                                     display: { xs: 'block', md: 'none' },
                                 }}
                             >
-                                {pages.map((page) => (
-                                    <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                        <Typography textAlign="center">{page}</Typography>
-                                    </MenuItem>
-                                ))}
+                                <NavLink to="/">
+                                <Button
+                                    onClick={handleCloseNavMenu}
+                                    sx={{ color: 'black', display: 'block', fontWeight: "bold" }}
+                                >
+                                    Home
+                                </Button>
+                            </NavLink>
+                            <NavLink to="/allproperties">
+                                <Button
+                                    onClick={handleCloseNavMenu}
+                                    sx={{ color: 'black', display: 'block', fontWeight: "bold" }}
+                                >
+                                    All Properties
+                                </Button>
+                            </NavLink>
+                            <NavLink to="/dashboard">
+                                <Button
+                                    onClick={handleCloseNavMenu}
+                                    sx={{ color: 'black', display: 'block', fontWeight: "bold" }}
+                                >
+                                    Dashboard
+                                </Button>
+                            </NavLink>
                             </Menu>
                         </Box>
                         {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
@@ -147,7 +166,7 @@ function Navbar() {
                                     All Properties
                                 </Button>
                             </NavLink>
-                            <NavLink to="/dashboard">
+                            <NavLink to="/login">
                                 <Button
                                     onClick={handleCloseNavMenu}
                                     sx={{ my: 2, color: 'white', display: 'block', fontWeight: "bold" }}

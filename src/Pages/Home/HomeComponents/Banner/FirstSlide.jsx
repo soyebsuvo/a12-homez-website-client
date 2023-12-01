@@ -4,8 +4,7 @@ import { SlShareAlt } from "react-icons/sl";
 import { LiaExternalLinkSquareAltSolid } from "react-icons/lia";
 import { GiSelfLove } from "react-icons/gi";
 import { useLocation } from 'react-router-dom';
-
-
+import PropTypes from 'prop-types';
 
 export default function FirstSlide({image}) {
     const location = useLocation();
@@ -46,4 +45,7 @@ export default function FirstSlide({image}) {
             </div>
         </div>
     )
+}
+FirstSlide.propTypes = {
+    image:PropTypes.string
 }
