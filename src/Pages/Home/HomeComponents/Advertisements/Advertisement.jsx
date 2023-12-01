@@ -15,14 +15,14 @@ export default function Advertisement({item}) {
         height="140"
         image={item?.image}
       ></CardMedia>
-      <h3 className='absolute top-32 px-2 rounded-md font-bold left-2 bg-white'>${item?.price_range}</h3>
+      <h3 className='absolute top-32 px-2 rounded-md font-bold left-2 bg-white'>${item?.price?.min} - ${item?.price?.max}</h3>
       <h3 className='absolute top-2 px-2 rounded-md font-bold left-2 bg-[#EB6753] text-white'>{item?.verification_status ? `Verified` : `Unverified`}</h3>
       <CardContent>
         <Typography gutterBottom variant="h6" component="div">
           {item?.title}
         </Typography>
         <Typography sx={{marginBottom : "9px"}} variant="body2" color="text.secondary">
-          Agent - {item?.location}
+          {item?.location}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           Agent - {item?.agent_name}

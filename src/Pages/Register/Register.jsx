@@ -1,19 +1,45 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import LoginHeader from '../../assets/header-logo2.svg'
 import loginImage from '../../assets/LoginImage.jpg'
 import { useForm } from 'react-hook-form';
 import { Divider } from '@mui/material';
 import { FcGoogle } from 'react-icons/fc';
+import { useContext } from 'react';
+import { AuthContext } from '../../Providers/AuthProvider/AuthProvider';
 export default function Register() {
-
+const { createUser , googleLogin} = useContext(AuthContext);
+const navigate = useNavigate();
     const {
         register,
         handleSubmit,
     } = useForm();
-    const onSubmit = (data) => console.log(data)
+    const onSubmit = (data) => {
+        console.log(data)
+        createUser(data.email , data.password)
+        .then(result => {
+            const loggedUser = result.user;
+            console.log(loggedUser)
+            navigate("/")
+        })
+        .catch(error => {
+            console.log(error)
+        })
+    }
+
+    const handleOtherLogin = () => {
+        googleLogin()
+        .then(result => {
+            console.log(result.user)
+            navigate(location.state ? location.state : "/");
+        })
+        .catch(error => {
+            console.log(error)
+        })
+    }
+
 
     return (
-        <div className='md:px-20 py-8 flex gap-16 justify-center items-center min-h-[99vh]'>
+        <div className='md:px-20 py-8 flex flex-row-reverse gap-16 justify-center items-center min-h-[99vh]'>
             <div className='w-1/2 md:px-8'>
                 <div className="p-8 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
                     <div className='pb-8'>
@@ -27,15 +53,15 @@ export default function Register() {
 
                         <div>
                             <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                            <input {...register("name", { required: true })} type="text" name="name" id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Your Name" />
+                            <input {...register("name", { required: true })} type="text" name="name" id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#EB675368] focus:border-[#EB675368] block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Your Name" />
                         </div>
                         <div>
                             <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                            <input {...register("email", { required: true })} type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="name@company.com" />
+                            <input {...register("email", { required: true })} type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#EB675368] focus:border-[#EB675368] block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="name@company.com" />
                         </div>
                         <div>
                             <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                            <input {...register("password", { required: true })} type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" />
+                            <input {...register("password", { required: true })} type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#EB675368] focus:border-[#eb675368] block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" />
                         </div>
                         <div>
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="default_size">Profile Photo</label>
@@ -54,7 +80,7 @@ export default function Register() {
                     </form>
                     <Divider>Or</Divider>
                     <div className='relative'>
-                        <button className="w-full my-3 text-black font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:[#EB6753] border border-black">Login With Google</button>
+                        <button onClick={handleOtherLogin} className="w-full my-3 text-black font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:[#EB6753] border border-black">Login With Google</button>
                         <FcGoogle className='absolute left-2 top-5 text-2xl'></FcGoogle>
                     </div>
                     <div className="text-sm text-center font-medium text-gray-500 dark:text-gray-300">

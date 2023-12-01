@@ -4,7 +4,7 @@ import Footer from "../Shared/Footer/Footer";
 
 export default function MainLayouts() {
     const location = useLocation();
-    const isLogin = location.pathname === '/login'
+    const isLogin = location.pathname === '/login' || location.pathname === "/register"
     return (
         <div className="max-w-7xl mx-auto">
             {isLogin || <Navbar></Navbar>}

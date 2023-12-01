@@ -1,8 +1,23 @@
 import { useLoaderData } from "react-router-dom"
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import Swal from "sweetalert2";
 
 export default function PropertyDetails() {
+    const axiosPublic = useAxiosPublic();
     const property = useLoaderData();
-    const { agent_name, agent_image, title, image, location, price_range, desc } = property || {};
+    const { agent_name, agent_image, title, image, location, price, desc , verification_status } = property || {};
+    const wishItem = { agent_name, agent_image, title, image, location, price, desc, verification_status };
+    const handleAddToWishlist = async () => {
+        const res = await axiosPublic.post("/wishlist" , wishItem);
+        console.log(res.data)
+        if(res.data.insertedId){
+            Swal.fire(
+                'Done',
+                `${title} added to wishlist`,
+                'success'
+              )
+        }
+    }
     return (
         <div className="md:px-20 py-8">
             <div className="flex gap-10">
@@ -36,8 +51,8 @@ export default function PropertyDetails() {
                             <span className="bg-blue-100 text-[#EB6753] text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-[#EB6753] ms-3">5.0</span>
                         </div>
                         <div className="flex items-center justify-between">
-                            <span className="text-xl font-bold text-gray-900 dark:text-white">${price_range}</span>
-                            <a href="#" className="text-white bg-[#EB6753] hover:bg-[#EB6753] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-[#EB6753] dark:hover:bg-[#EB6753] dark:focus:ring-blue-800">Add to Wishlist</a>
+                            <span className="text-xl font-bold text-gray-900 dark:text-white">${price?.min} - ${price?.max}</span>
+                            <button onClick={handleAddToWishlist} className="text-white bg-[#EB6753] hover:bg-[#EB6753] font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-[#EB6753] dark:hover:bg-[#EB6753] dark:focus:ring-blue-800">Add to Wishlist</button>
                         </div>
                     </div>
                 </div>
