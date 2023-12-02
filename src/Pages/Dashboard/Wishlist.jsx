@@ -3,11 +3,12 @@ import { FaTrash } from "react-icons/fa";
 import Swal from "sweetalert2";
 import useWishlist from "../../Hooks/useWishlist";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import { Link } from "react-router-dom";
 
 
 export default function Wishlist() {
     const axiosPublic = useAxiosPublic();
-    const [wishlist , isPending , refetch] = useWishlist();
+    const [wishlist, isPending, refetch] = useWishlist();
     const handleRemoveItem = async (id) => {
 
         Swal.fire({
@@ -21,18 +22,18 @@ export default function Wishlist() {
         }).then((result) => {
             if (result.isConfirmed) {
                 axiosPublic.delete(`/wishlist/${id}`)
-                .then(res => {
-                    console.log(res.data)
-                    if (res.data.deletedCount > 0) {
-                        refetch()
-                        Swal.fire(
-                            'Deleted!',
-                            'Your file has been deleted.',
-                            'success'
-                        )
-                    }
-                })
-                
+                    .then(res => {
+                        console.log(res.data)
+                        if (res.data.deletedCount > 0) {
+                            refetch()
+                            Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                            )
+                        }
+                    })
+
             }
         })
     }
@@ -74,12 +75,14 @@ export default function Wishlist() {
                                             Remove <FaTrash></FaTrash>
 
                                         </button>
-                                        <button className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-[#EB6753] rounded-lg hover:bg-[#EB6753] focus:ring-4 focus:outline-none focus:ring-[#EB6753] dark:bg-[#EB6753] dark:hover:bg-[#EB6753] dark:focus:ring-[#EB6753]">
-                                            Make Offer
-                                            <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                                                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
-                                            </svg>
-                                        </button>
+                                        <Link to={`/dashboard/makeOffer/${item?._id}`}>
+                                            <button className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-[#EB6753] rounded-lg hover:bg-[#EB6753] focus:ring-4 focus:outline-none focus:ring-[#EB6753] dark:bg-[#EB6753] dark:hover:bg-[#EB6753] dark:focus:ring-[#EB6753]">
+                                                Make Offer
+                                                <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
+                                                </svg>
+                                            </button>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>

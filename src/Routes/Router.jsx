@@ -10,6 +10,7 @@ import Dashboard from "../Pages/Dashboard/Dashboard";
 import MyProfile from "../Pages/Dashboard/MyProfile";
 import Wishlist from "../Pages/Dashboard/Wishlist";
 import WelcomeDashboard from "../Pages/Dashboard/WelcomeDashboard";
+import OfferPage from "../Pages/Dashboard/UserPanel/OfferPage";
 
 const router = createBrowserRouter([
     {
@@ -54,6 +55,11 @@ const router = createBrowserRouter([
             {
                 path : "/dashboard/wishlist",
                 element : <Wishlist></Wishlist>
+            },
+            {
+                path : "/dashboard/makeOffer/:id",
+                element : <OfferPage></OfferPage>,
+                loader : ({params}) => fetch(`http://localhost:5000/wishlist/${params.id}`)
             }
         ]
     }
