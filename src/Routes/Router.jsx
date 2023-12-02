@@ -8,6 +8,8 @@ import Register from "../Pages/Register/Register";
 import PrivateRoute from "./PrivateRoute";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import MyProfile from "../Pages/Dashboard/MyProfile";
+import Wishlist from "../Pages/Dashboard/Wishlist";
+import WelcomeDashboard from "../Pages/Dashboard/WelcomeDashboard";
 
 const router = createBrowserRouter([
     {
@@ -38,12 +40,20 @@ const router = createBrowserRouter([
         ]
     },
     {
-        path : '/dashboard/myProfile',
+        path : '/dashboard',
         element : <Dashboard></Dashboard>,
         children : [
             {
+                path : "/dashboard",
+                element : <WelcomeDashboard></WelcomeDashboard>
+            },
+            {
                 path : '/dashboard/myProfile',
                 element : <MyProfile></MyProfile>
+            },
+            {
+                path : "/dashboard/wishlist",
+                element : <Wishlist></Wishlist>
             }
         ]
     }

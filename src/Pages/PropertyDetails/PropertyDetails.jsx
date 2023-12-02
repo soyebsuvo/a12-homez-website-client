@@ -1,12 +1,15 @@
 import { useLoaderData } from "react-router-dom"
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import Swal from "sweetalert2";
+import { useContext } from "react";
+import { AuthContext } from "../../Providers/AuthProvider/AuthProvider";
 
 export default function PropertyDetails() {
+    const { user } = useContext(AuthContext);
     const axiosPublic = useAxiosPublic();
     const property = useLoaderData();
     const { agent_name, agent_image, title, image, location, price, desc , verification_status } = property || {};
-    const wishItem = { agent_name, agent_image, title, image, location, price, desc, verification_status };
+    const wishItem = { email : user?.email, agent_name, agent_image, title, image, location, price, desc, verification_status };
     const handleAddToWishlist = async () => {
         const res = await axiosPublic.post("/wishlist" , wishItem);
         console.log(res.data)

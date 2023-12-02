@@ -3,11 +3,12 @@ import { AuthContext } from "../../Providers/AuthProvider/AuthProvider";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { FaLuggageCart } from "react-icons/fa";
+import Loader from "../../Components/Loader";
 
 export default function MyProfile() {
     const axiosPublic = useAxiosPublic();
     const { user } = useContext(AuthContext);
-    const { data: wishlistCount } = useQuery({
+    const { data: wishlistCount , isPending} = useQuery({
         queryKey: ["wishlistCount"],
         queryFn: async () => {
             const res = await axiosPublic.get("/wishlistCount");
@@ -16,14 +17,17 @@ export default function MyProfile() {
     })
     const isAdmin = false;
     // console.log(wishlistCount)
+    if(isPending){
+        return <Loader></Loader>
+    }
     return (
         <div className="md:px-8">
-            <div className="mb-5 flex gap-3 items-center">
+            <div className="mb-5 flex gap-3 items-center mt-4">
                 <div>
                     <img className="w-12 h-12 rounded-full" src={user?.photoURL} alt="Profile" />
                 </div>
                 <div>
-                    <h2 className="text-2xl font-bold text-left mt-4">Hi, {user?.displayName}</h2>
+                    <h2 className="text-2xl font-bold text-left">Hi, {user?.displayName}</h2>
                     <p className="text-sm text-gray-600 mt-1">We are glad to see you again!</p>
                 </div>
             </div>
