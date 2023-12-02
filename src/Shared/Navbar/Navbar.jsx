@@ -127,7 +127,7 @@ function Navbar() {
                                         All Properties
                                     </Button>
                                 </NavLink>
-                                <NavLink to="/dashboard">
+                                <NavLink to="/dashboard/myProfile">
                                     <Button
                                         onClick={handleCloseNavMenu}
                                         sx={{ color: 'black', display: 'block', fontWeight: "bold" }}
@@ -173,7 +173,7 @@ function Navbar() {
                                     All Properties
                                 </Button>
                             </NavLink>
-                            <NavLink to="/login">
+                            <NavLink to="/dashboard/myProfile">
                                 <Button
                                     onClick={handleCloseNavMenu}
                                     sx={isHome ? { my: 2, color: 'white', display: 'block', fontWeight: "bold" } : { my: 2, color: 'black', display: 'block', fontWeight: "bold" }}
