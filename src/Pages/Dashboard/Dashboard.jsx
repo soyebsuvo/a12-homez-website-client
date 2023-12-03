@@ -36,8 +36,8 @@ export default function Dashboard() {
           </ul>}
           { role === "admin" && <ul className="px-8">
             <NavLink to="/dashboard/myProfile"><li className="flex items-center gap-2 font-bold py-1"><CgProfile className="text-xl" />Admin Profile</li></NavLink>
-            <NavLink to="/dashboard/addProperty"><li className="flex items-center gap-2 font-bold py-1"><FaAd className="text-xl" />Manage Properties</li></NavLink>
-            <NavLink to="/dashboard/agentAddedProperty"><li className="flex items-center gap-2 font-bold py-1"><TiBusinessCard className="text-xl" />Manage Users</li></NavLink>
+            <NavLink to="/dashboard/manageProperty"><li className="flex items-center gap-2 font-bold py-1"><FaAd className="text-xl" />Manage Properties</li></NavLink>
+            <NavLink to="/dashboard/manageUsers"><li className="flex items-center gap-2 font-bold py-1"><TiBusinessCard className="text-xl" />Manage Users</li></NavLink>
             <NavLink to="/dashboard/myReviews"><li className="flex items-center gap-2 font-bold py-1"><LiaSellcast className="text-xl" />Manage Reviews</li></NavLink>
           </ul>}
         </div>

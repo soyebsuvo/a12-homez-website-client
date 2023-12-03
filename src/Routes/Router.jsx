@@ -16,6 +16,10 @@ import AddPropertyPage from "../Pages/Dashboard/AgentPanel/AddPropertyPage";
 import AgentAddedProperty from "../Pages/Dashboard/AgentPanel/AgentAddedProperty";
 import UpdateProperty from "../Pages/Dashboard/AgentPanel/UpdateProperty";
 import RequestedProperties from "../Pages/Dashboard/AgentPanel/RequestedProperties";
+import ManageProperties from "../Pages/Dashboard/AdminPanel/ManageProperties";
+import ManageUsers from "../Pages/Dashboard/AdminPanel/ManageUsers";
+import AdminRoute from "./AdminRoute";
+import AgentRoute from "./AgentRoute";
 
 const router = createBrowserRouter([
     {
@@ -51,42 +55,51 @@ const router = createBrowserRouter([
         children : [
             {
                 path : "/dashboard",
-                element : <WelcomeDashboard></WelcomeDashboard>
+                element : <PrivateRoute><WelcomeDashboard></WelcomeDashboard></PrivateRoute>
             },
             {
                 path : '/dashboard/myProfile',
-                element : <MyProfile></MyProfile>
+                element : <PrivateRoute><MyProfile></MyProfile></PrivateRoute>
             },
             {
                 path : "/dashboard/wishlist",
-                element : <Wishlist></Wishlist>
+                element : <PrivateRoute><Wishlist></Wishlist></PrivateRoute>
             },
             {
                 path : "/dashboard/makeOffer/:id",
-                element : <OfferPage></OfferPage>,
+                element : <PrivateRoute><OfferPage></OfferPage></PrivateRoute>,
                 loader : ({params}) => fetch(`http://localhost:5000/wishlist/${params.id}`)
             },
             {
                 path : "/dashboard/propertyBought",
-                element : <PropertyBoughtPage></PropertyBoughtPage>
+                element : <PrivateRoute><PropertyBoughtPage></PropertyBoughtPage></PrivateRoute>
             },
             // agent route 
             {
                 path : "/dashboard/addProperty",
-                element : <AddPropertyPage></AddPropertyPage>
+                element : <AgentRoute><AddPropertyPage></AddPropertyPage></AgentRoute>
             },
             {
                 path : '/dashboard/agentAddedProperty',
-                element : <AgentAddedProperty></AgentAddedProperty>
+                element : <AgentRoute><AgentAddedProperty></AgentAddedProperty></AgentRoute>
             },
             {
                 path : "/dashboard/updateProperty/:id",
-                element : <UpdateProperty></UpdateProperty>,
+                element : <AgentRoute><UpdateProperty></UpdateProperty>,</AgentRoute>,
                 loader : ({params}) => fetch(`http://localhost:5000/properties/${params.id}`)
             },
             {
                 path : "/dashboard/requestedProperties",
-                element : <RequestedProperties></RequestedProperties>
+                element : <AgentRoute><RequestedProperties></RequestedProperties></AgentRoute>
+            },
+            // admin routes 
+            {
+                path : "/dashboard/manageProperty",
+                element : <AdminRoute><ManageProperties></ManageProperties></AdminRoute>
+            },
+            {
+                path : "/dashboard/manageUsers",
+                element : <AdminRoute><ManageUsers></ManageUsers></AdminRoute>
             }
         ]
     }

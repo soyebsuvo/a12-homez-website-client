@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 // import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 export default function AddPropertyPage() {
     const {
@@ -15,7 +16,7 @@ export default function AddPropertyPage() {
     const { user } = useContext(AuthContext);
     // const axiosPublic = useAxiosPublic();
     const axiosSecure = useAxiosSecure()
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     // console.log(property)
     const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
     const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -34,7 +35,7 @@ export default function AddPropertyPage() {
                 'content-type': 'multipart/form-data'
             }
         })
-        const newProperty = { date: moment().format('L'), agent_email: user?.email, title, location, image : res.data.data.display_url, agent_name, agent_image, price: { min : minPrice,max : maxPrice }, desc, status: "pending" }
+        const newProperty = { date: moment().format('L'), agent_email: user?.email, title, location, image : res.data.data.display_url, agent_name, agent_image, price: { min : minPrice,max : maxPrice }, desc, verification_status: "unverified" }
         console.log(newProperty)
  
         if (res.data.success) {
@@ -46,7 +47,7 @@ export default function AddPropertyPage() {
                     `${title} added to property list`,
                     'success'
                 )
-                // navigate("/addedProperties")
+                navigate("/dashboard/agentAddedProperty")
             }
         }
 

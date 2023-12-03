@@ -16,7 +16,7 @@ export default function Advertisement({item}) {
         image={item?.image}
       ></CardMedia>
       <h3 className='absolute top-32 px-2 rounded-md font-bold left-2 bg-white'>${item?.price?.min} - ${item?.price?.max}</h3>
-      <h3 className='absolute top-2 px-2 rounded-md font-bold left-2 bg-[#EB6753] text-white'>{item?.verification_status ? `Verified` : `Unverified`}</h3>
+      <h3 className='absolute top-2 px-2 rounded-md font-bold left-2 bg-[#EB6753] text-white'>{item?.verification_status}</h3>
       <CardContent>
         <Typography gutterBottom variant="h6" component="div">
           {item?.title}

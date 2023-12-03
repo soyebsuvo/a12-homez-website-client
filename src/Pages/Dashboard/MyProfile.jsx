@@ -9,6 +9,7 @@ import useAllProperties from "../../Hooks/useAllProperties";
 import { TiBusinessCard } from "react-icons/ti";
 import useCheckRole from "../../Hooks/useCheckRole";
 import useRequestedProperty from "../../Hooks/useRequestedProperty";
+import useUsers from "../../Hooks/useUsers";
 
 export default function MyProfile() {
     const [ requestedProperties ] = useRequestedProperty();
@@ -17,6 +18,7 @@ export default function MyProfile() {
     const { user } = useContext(AuthContext);
   const [ wishlist , isPending] = useWishlist();
   const [ allProperties , isAllPropertiesPending ] = useAllProperties();
+  const [ users ] = useUsers();
     // console.log(wishlistCount)
     if(isPending || isAllPropertiesPending){
         return <Loader></Loader>
@@ -37,7 +39,7 @@ export default function MyProfile() {
             </div>
            <div className="grid grid-cols-4 gap-3">
 
-                { role === "" && <div className="shadow p-6 flex justify-between items-center">
+                { !role && <div className="shadow p-6 flex justify-between items-center">
                     <div>
                         <p className="text-sm text-center text-gray-600">Wishlist</p>
                         <h3 className="text-3xl font-bold text-center">{wishlist?.length}</h3>
@@ -70,7 +72,7 @@ export default function MyProfile() {
                     <div className="shadow p-6 flex justify-between items-center">
                     <div>
                         <p className="text-sm text-center text-gray-600">Users</p>
-                        <h3 className="text-3xl font-bold text-center">9+</h3>
+                        <h3 className="text-3xl font-bold text-center">{users?.length}</h3>
                     </div>
                     <div>
                     <FaUsers className="text-3xl" />

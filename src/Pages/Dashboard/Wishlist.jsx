@@ -10,7 +10,6 @@ export default function Wishlist() {
     const axiosPublic = useAxiosPublic();
     const [wishlist, isPending, refetch] = useWishlist();
     const handleRemoveItem = async (id) => {
-
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",

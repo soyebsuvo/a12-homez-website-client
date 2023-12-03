@@ -6,12 +6,12 @@ import useAxiosPublic from "./useAxiosPublic";
 export default function useCheckRole() {
     const { user } = useContext(AuthContext);
     const axiosPublic = useAxiosPublic();
-    const { data: role } = useQuery({
+    const { data: role , isPending : isRolePending } = useQuery({
         queryKey: ["role"],
         queryFn: async () => {
             const res = await axiosPublic.get(`/user/admin/${user?.email}`);
             return res.data.role;
         }
     })
-    return [role]
+    return [role , isRolePending]
 }

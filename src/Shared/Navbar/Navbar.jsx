@@ -183,6 +183,7 @@ function Navbar() {
                         </Box>
 
                         {user ? <Box sx={{ flexGrow: 0, marginLeft: "30px" }}>
+                            <h2 className='text-white inline mr-4 font-bold'>{user?.displayName}</h2>
                             <Tooltip title="Open settings">
                                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                                     {/* <Avatar alt="Remy Sharp" src={user?.photoURL} /> */}
