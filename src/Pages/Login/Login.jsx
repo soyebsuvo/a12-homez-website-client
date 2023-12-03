@@ -6,8 +6,10 @@ import { Divider } from '@mui/material';
 import { FcGoogle } from 'react-icons/fc';
 import { useContext } from 'react';
 import { AuthContext } from '../../Providers/AuthProvider/AuthProvider';
+import useAxiosPublic from '../../Hooks/useAxiosPublic';
 
 export default function Login() {
+    const axiosPublic = useAxiosPublic();
     const navigate = useNavigate();
     const location = useLocation();
     const { login , googleLogin} = useContext(AuthContext);
@@ -21,6 +23,7 @@ export default function Login() {
             .then(result => {
                 const loggedUser = result.user;
                 console.log(loggedUser);
+                
                 navigate(location.state ? location.state : "/")
             })
             .catch(error => {
@@ -33,6 +36,11 @@ export default function Login() {
         .then(result => {
             console.log(result.user)
             navigate(location.state ? location.state : "/");
+            const userInfo = { name: result?.user?.displayName, email: result?.user?.email }
+                axiosPublic.post('/users', userInfo)
+                .then(res => {
+                    console.log(res.data)
+                })
         })
         .catch(error => {
             console.log(error)

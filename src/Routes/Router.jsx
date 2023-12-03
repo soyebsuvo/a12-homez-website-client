@@ -11,6 +11,9 @@ import MyProfile from "../Pages/Dashboard/MyProfile";
 import Wishlist from "../Pages/Dashboard/Wishlist";
 import WelcomeDashboard from "../Pages/Dashboard/WelcomeDashboard";
 import OfferPage from "../Pages/Dashboard/UserPanel/OfferPage";
+import PropertyBoughtPage from "../Pages/Dashboard/UserPanel/PropertyBoughtPage";
+import AddPropertyPage from "../Pages/Dashboard/AgentPanel/AddPropertyPage";
+import AgentAddedProperty from "../Pages/Dashboard/AgentPanel/AgentAddedProperty";
 
 const router = createBrowserRouter([
     {
@@ -60,6 +63,19 @@ const router = createBrowserRouter([
                 path : "/dashboard/makeOffer/:id",
                 element : <OfferPage></OfferPage>,
                 loader : ({params}) => fetch(`http://localhost:5000/wishlist/${params.id}`)
+            },
+            {
+                path : "/dashboard/propertyBought",
+                element : <PropertyBoughtPage></PropertyBoughtPage>
+            },
+            // agent route 
+            {
+                path : "/dashboard/addProperty",
+                element : <AddPropertyPage></AddPropertyPage>
+            },
+            {
+                path : '/dashboard/agentAddedProperty',
+                element : <AgentAddedProperty></AgentAddedProperty>
             }
         ]
     }

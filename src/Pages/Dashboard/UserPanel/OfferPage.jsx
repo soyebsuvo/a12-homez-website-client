@@ -28,7 +28,7 @@ export default function OfferPage() {
                 'The agent revieved your offer.',
                 'success'
             )
-                navigate("/allproperties")
+                navigate("/dashboard/wishlist")
         }
     }
     return (

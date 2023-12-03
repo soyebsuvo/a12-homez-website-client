@@ -6,35 +6,63 @@ import { Divider } from '@mui/material';
 import { FcGoogle } from 'react-icons/fc';
 import { useContext } from 'react';
 import { AuthContext } from '../../Providers/AuthProvider/AuthProvider';
+import useAxiosPublic from '../../Hooks/useAxiosPublic';
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 export default function Register() {
-const { createUser , googleLogin} = useContext(AuthContext);
-const navigate = useNavigate();
+    const axiosPublic = useAxiosPublic();
+    const { createUser, googleLogin , updateUserProfile} = useContext(AuthContext);
+    const navigate = useNavigate();
     const {
         register,
         handleSubmit,
     } = useForm();
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         console.log(data)
-        createUser(data.email , data.password)
-        .then(result => {
-            const loggedUser = result.user;
-            console.log(loggedUser)
-            navigate("/")
+        const res = await axiosPublic.post(image_hosting_api, { image: data?.image[0] }, {
+            headers: {
+                "content-type": "multipart/form-data"
+            }
         })
-        .catch(error => {
-            console.log(error)
-        })
+        // console.log(res.data.data.display_url)
+        if (res.data.success) {
+            createUser(data.email, data.password)
+                .then(result => {
+                    const loggedUser = result.user;
+                    console.log(loggedUser)
+                    updateUserProfile(data?.name , res.data.data.display_url)
+                    .then(() => {
+                        console.log("user info updated")
+                    })
+                    navigate("/")
+                    const userInfo = { name: data?.name, email: data?.email };
+                    axiosPublic.post('/users', userInfo)
+                        .then(res => {
+                            console.log(res.data)
+                        })
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        }
+
+
     }
 
     const handleOtherLogin = () => {
         googleLogin()
-        .then(result => {
-            console.log(result.user)
-            navigate(location.state ? location.state : "/");
-        })
-        .catch(error => {
-            console.log(error)
-        })
+            .then(result => {
+                console.log(result.user)
+                navigate(location.state ? location.state : "/");
+                const userInfo = { name: result?.user?.displayName, email: result?.user?.email }
+                axiosPublic.post('/users', userInfo)
+                    .then(res => {
+                        console.log(res.data)
+                    })
+            })
+            .catch(error => {
+                console.log(error)
+            })
     }
 
 
@@ -65,7 +93,7 @@ const navigate = useNavigate();
                         </div>
                         <div>
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="default_size">Profile Photo</label>
-                            <input className="block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="default_size" type="file"/>
+                            <input {...register("image")} className="block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="default_size" type="file" />
                         </div>
                         <div className="flex items-start">
                             <div className="flex items-start">
@@ -89,7 +117,7 @@ const navigate = useNavigate();
                 </div>
             </div>
 
-            {/* svg  */}
+            {/* svg - */}
             <div className='w-1/2 p-4'>
                 <img className='w-full' src={loginImage} alt="" />
             </div>
