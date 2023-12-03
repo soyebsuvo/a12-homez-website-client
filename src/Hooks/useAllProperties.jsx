@@ -13,5 +13,5 @@ export default function useAllProperties() {
             return res.data;
         }
     })
-  return [ allProperties ]
+  return [ allProperties , isPending  , refetch]
 }

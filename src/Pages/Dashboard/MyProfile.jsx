@@ -5,12 +5,15 @@ import { AuthContext } from "../../Providers/AuthProvider/AuthProvider";
 import { FaLuggageCart } from "react-icons/fa";
 import Loader from "../../Components/Loader";
 import useWishlist from "../../Hooks/useWishlist";
+import useAllProperties from "../../Hooks/useAllProperties";
+import { TiBusinessCard } from "react-icons/ti";
 
 export default function MyProfile() {
     // const axiosPublic = useAxiosPublic();
     const { user } = useContext(AuthContext);
   const [ wishlist , isPending] = useWishlist();
-    const isAdmin = false;
+  const [ allProperties ] = useAllProperties();
+    const role = "agent";
     // console.log(wishlistCount)
     if(isPending){
         return <Loader></Loader>
@@ -26,9 +29,12 @@ export default function MyProfile() {
                     <p className="text-sm text-gray-600 mt-1">We are glad to see you again!</p>
                 </div>
             </div>
-            {isAdmin || <div className="grid grid-cols-4 gap-3">
+            <div className="mb-4">
+                {role === "agent" && <p className="text-2xl text-gray-500">You are a Agent</p>}
+            </div>
+           <div className="grid grid-cols-4 gap-3">
 
-                <div className="shadow p-6 flex justify-between items-center">
+                { role === "" && <div className="shadow p-6 flex justify-between items-center">
                     <div>
                         <p className="text-sm text-center text-gray-600">Wishlist</p>
                         <h3 className="text-3xl font-bold text-center">{wishlist.length}</h3>
@@ -36,17 +42,17 @@ export default function MyProfile() {
                     <div>
                         <FaLuggageCart className="text-3xl"></FaLuggageCart>
                     </div>
-                </div>
-                <div>
+                </div>}
+                { role === 'agent' && <div className="shadow p-6 flex justify-between items-center">
                     <div>
-                        <p></p>
-                        <h3></h3>
+                        <p className="text-sm text-center text-gray-600">Added Properties</p>
+                        <h3 className="text-3xl font-bold text-center">{allProperties.length}</h3>
                     </div>
                     <div>
-
+                    <TiBusinessCard className="text-3xl" />
                     </div>
-                </div>
-            </div>}
+                </div>}
+            </div>
 
         </div>
     )

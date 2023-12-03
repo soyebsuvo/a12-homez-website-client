@@ -28,7 +28,7 @@ export default function Dashboard() {
           { role === "agent" && <ul className="px-8">
             <NavLink to="/dashboard/myProfile"><li className="flex items-center gap-2 font-bold py-1"><CgProfile className="text-xl" />Agent Profile</li></NavLink>
             <NavLink to="/dashboard/addProperty"><li className="flex items-center gap-2 font-bold py-1"><FaAd className="text-xl" />Add Property</li></NavLink>
-            <NavLink to="/dashboard/propertyBought"><li className="flex items-center gap-2 font-bold py-1"><TiBusinessCard className="text-xl" />My Added Properties</li></NavLink>
+            <NavLink to="/dashboard/agentAddedProperty"><li className="flex items-center gap-2 font-bold py-1"><TiBusinessCard className="text-xl" />My Added Properties</li></NavLink>
             <NavLink to="/dashboard/myReviews"><li className="flex items-center gap-2 font-bold py-1"><LiaSellcast className="text-xl" />My sold Properties.</li></NavLink>
             <NavLink to="/dashboard/myReviews"><li className="flex items-center gap-2 font-bold py-1"><FaRegCommentDots className="text-xl" />Requested Properties.</li></NavLink>
           </ul>}

@@ -20,7 +20,7 @@ export default function AgentAddedProperty() {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axiosSecure.delete(`/wishlist/${id}`)
+                axiosSecure.delete(`/properties/${id}`)
                     .then(res => {
                         console.log(res.data)
                         if (res.data.deletedCount > 0) {
@@ -43,7 +43,7 @@ export default function AgentAddedProperty() {
   return (
     <div className="md:px-10">
             <div className="py-4 mb-5">
-                <h2 className="text-center text-4xl font-bold">Wishlist</h2>
+                <h2 className="text-center text-4xl font-bold">My Added Properties</h2>
             </div>
             <div>
                 <div className="grid grid-cols-2 gap-8">
@@ -75,9 +75,9 @@ export default function AgentAddedProperty() {
                                             Remove <FaTrash></FaTrash>
 
                                         </button>
-                                        <Link to={`/dashboard/makeOffer/${item?._id}`}>
+                                        <Link to={`/dashboard/updateProperty/${item?._id}`}>
                                             <button className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-[#EB6753] rounded-lg hover:bg-[#EB6753] focus:ring-4 focus:outline-none focus:ring-[#EB6753] dark:bg-[#EB6753] dark:hover:bg-[#EB6753] dark:focus:ring-[#EB6753]">
-                                                Make Offer
+                                                Update
                                                 <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                                                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
                                                 </svg>
