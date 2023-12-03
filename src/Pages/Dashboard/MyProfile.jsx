@@ -2,18 +2,21 @@ import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProvider/AuthProvider";
 // import { useQuery } from "@tanstack/react-query";
 // import useAxiosPublic from "../../Hooks/useAxiosPublic";
-import { FaLuggageCart } from "react-icons/fa";
+import { FaLuggageCart, FaUsers } from "react-icons/fa";
 import Loader from "../../Components/Loader";
 import useWishlist from "../../Hooks/useWishlist";
 import useAllProperties from "../../Hooks/useAllProperties";
 import { TiBusinessCard } from "react-icons/ti";
+import useCheckRole from "../../Hooks/useCheckRole";
+import useRequestedProperty from "../../Hooks/useRequestedProperty";
 
 export default function MyProfile() {
+    const [ requestedProperties ] = useRequestedProperty();
+    const [ role ] = useCheckRole();
     // const axiosPublic = useAxiosPublic();
     const { user } = useContext(AuthContext);
   const [ wishlist , isPending] = useWishlist();
   const [ allProperties , isAllPropertiesPending ] = useAllProperties();
-    const role = "agent";
     // console.log(wishlistCount)
     if(isPending || isAllPropertiesPending){
         return <Loader></Loader>
@@ -30,14 +33,14 @@ export default function MyProfile() {
                 </div>
             </div>
             <div className="mb-4">
-                {role === "agent" && <p className="text-2xl text-gray-500">You are a Agent</p>}
+                {role && <p className="text-2xl text-gray-500">You are an {role}</p>}
             </div>
            <div className="grid grid-cols-4 gap-3">
 
                 { role === "" && <div className="shadow p-6 flex justify-between items-center">
                     <div>
                         <p className="text-sm text-center text-gray-600">Wishlist</p>
-                        <h3 className="text-3xl font-bold text-center">{wishlist.length}</h3>
+                        <h3 className="text-3xl font-bold text-center">{wishlist?.length}</h3>
                     </div>
                     <div>
                         <FaLuggageCart className="text-3xl"></FaLuggageCart>
@@ -46,12 +49,34 @@ export default function MyProfile() {
                 { role === 'agent' && <div className="shadow p-6 flex justify-between items-center">
                     <div>
                         <p className="text-sm text-center text-gray-600">Added Properties</p>
-                        <h3 className="text-3xl font-bold text-center">{allProperties.length}</h3>
+                        <h3 className="text-3xl font-bold text-center">{allProperties?.length}</h3>
                     </div>
                     <div>
                     <TiBusinessCard className="text-3xl" />
                     </div>
                 </div>}
+                { role === 'agent' &&
+                    <div className="shadow p-6 flex justify-between items-center">
+                    <div>
+                        <p className="text-sm text-center text-gray-600">Requested Properties</p>
+                        <h3 className="text-3xl font-bold text-center">{requestedProperties?.length}</h3>
+                    </div>
+                    <div>
+                    <TiBusinessCard className="text-3xl" />
+                    </div>
+                </div>
+                }
+                { role === 'admin' &&
+                    <div className="shadow p-6 flex justify-between items-center">
+                    <div>
+                        <p className="text-sm text-center text-gray-600">Users</p>
+                        <h3 className="text-3xl font-bold text-center">9+</h3>
+                    </div>
+                    <div>
+                    <FaUsers className="text-3xl" />
+                    </div>
+                </div>
+                }
             </div>
 
         </div>

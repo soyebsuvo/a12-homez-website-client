@@ -1,19 +1,62 @@
-import { useQuery } from "@tanstack/react-query"
-import useAxiosSecure from "../../../Hooks/useAxiosSecure"
+import Swal from "sweetalert2";
 import Loader from "../../../Components/Loader";
-import { useContext } from "react";
-import { AuthContext } from "../../../Providers/AuthProvider/AuthProvider";
+import useRequestedProperty from "../../../Hooks/useRequestedProperty";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+
 
 export default function RequestedProperties() {
-    const { user } = useContext(AuthContext);
     const axiosSecure = useAxiosSecure();
-    const { data : requestedProperties , isPending} = useQuery({
-        queryKey : ['requestedProperties'],
-        queryFn : async () => {
-            const res = await axiosSecure.get(`/requestedProperties?email=${user?.email}`)
-            return res.data;
-        }
-    })
+    const [ requestedProperties , isPending , refetch] = useRequestedProperty();
+    const handleAccept = (id , image , title) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Accept it!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                axiosSecure.patch(`/requested/accept/${id}?image=${image}&title=${title}`)
+                .then(res => {
+                    if(res.data.modifiedCount){
+                        refetch();
+                        Swal.fire(
+                            'Accepted!',
+                            'Offer has been Accepted.',
+                            'success'
+                          )
+                    }
+                })              
+            }
+          })
+    }
+    const handleReject = (id , image , title) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Reject it!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                axiosSecure.patch(`/requested/reject/${id}?image=${image}&title=${title}`)
+                .then(res => {
+                    if(res.data.modifiedCount){
+                        refetch();
+                        Swal.fire(
+                            'Deleted!',
+                            'Offer has been Rejected.',
+                            'success'
+                          )
+                    }
+                })              
+            }
+          })
+    }
     if(isPending){
         return <Loader></Loader>
     }
@@ -33,13 +76,19 @@ export default function RequestedProperties() {
                                 Name
                             </th>
                             <th scope="col" className="px-3 py-3">
-                                Agent
+                                Buyer
                             </th>                            
                             <th scope="col" className="px-3 py-3">
                                 Price
                             </th>
                             <th scope="col" className="px-3 py-3">
                                 Status
+                            </th>
+                            <th scope="col" className="px-3 py-3 text-center">
+                                Action
+                            </th>
+                            <th scope="col" className="px-3 py-3 text-center">
+                                Action
                             </th>
                         </tr>
                     </thead>
@@ -57,18 +106,25 @@ export default function RequestedProperties() {
                                     </div>
                                 </th>
                                 <td className="px-3 py-4">
-                                    {item?.agent_name}
+                                <div className="">
+                                        <div className="text-base font-semibold">{item?.buyer_name}</div>
+                                        <div className="font-normal text-sm text-gray-500">{item?.email}</div>
+                                    </div>
                                 </td>
                                 <td className="px-3 py-4">
                                     ${item?.offeredPrice}
                                 </td>
                                 <td className="px-3 py-4">
-                                    {item?.status}
+                                    <button>{item?.status}</button>
+                                </td>                                
+                                <td className="px-3 py-4 text-center">
+                                    { item?.status === 'accepted' ? "Accepted" : item?.status === 'rejected' ? '' : <button onClick={()=>handleAccept(item?._id , item?.image , item?.title)} className="border rounded-full px-4 py-1 bg-green-300 text-black hover:bg-green-400">{item?.status === 'accepted' ? 'Accepted' : "Accept"}</button>}
+                                </td>                                
+                                <td className="px-3 py-4 text-center">
+                                    { item?.status === 'rejected' ? 'Rejected' : item?.status === 'accepted' ? "" : <button onClick={()=>handleReject(item?._id , item?.image , item?.title)} className="border rounded-full px-4 py-1 bg-red-300 text-black hover:bg-red-400">{item?.status === 'rejected' ? 'Rejected' : 'Reject'}</button>}
                                 </td>                                
                             </tr>)
                         }
-
-
                     </tbody>
                 </table>
             </div>

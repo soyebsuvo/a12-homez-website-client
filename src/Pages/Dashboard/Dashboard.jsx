@@ -6,10 +6,12 @@ import { FaRegCommentDots } from "react-icons/fa6";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import useWishlist from "../../Hooks/useWishlist";
 import { LiaSellcast } from "react-icons/lia";
+import useCheckRole from "../../Hooks/useCheckRole";
 
 
 export default function Dashboard() {
-  let role = "agent"
+  const [ role ] = useCheckRole();
+  console.log(role)
   const [wishlist] = useWishlist();
   return (
     <div className="md:px-20 h-screen">
@@ -31,6 +33,12 @@ export default function Dashboard() {
             <NavLink to="/dashboard/agentAddedProperty"><li className="flex items-center gap-2 font-bold py-1"><TiBusinessCard className="text-xl" />My Added Properties</li></NavLink>
             <NavLink to="/dashboard/myReviews"><li className="flex items-center gap-2 font-bold py-1"><LiaSellcast className="text-xl" />My sold Properties.</li></NavLink>
             <NavLink to="/dashboard/requestedProperties"><li className="flex items-center gap-2 font-bold py-1"><FaRegCommentDots className="text-xl" />Requested Properties.</li></NavLink>
+          </ul>}
+          { role === "admin" && <ul className="px-8">
+            <NavLink to="/dashboard/myProfile"><li className="flex items-center gap-2 font-bold py-1"><CgProfile className="text-xl" />Admin Profile</li></NavLink>
+            <NavLink to="/dashboard/addProperty"><li className="flex items-center gap-2 font-bold py-1"><FaAd className="text-xl" />Manage Properties</li></NavLink>
+            <NavLink to="/dashboard/agentAddedProperty"><li className="flex items-center gap-2 font-bold py-1"><TiBusinessCard className="text-xl" />Manage Users</li></NavLink>
+            <NavLink to="/dashboard/myReviews"><li className="flex items-center gap-2 font-bold py-1"><LiaSellcast className="text-xl" />Manage Reviews</li></NavLink>
           </ul>}
         </div>
         {/* preview */}

@@ -19,7 +19,7 @@ export default function OfferPage() {
         if(offeredPrice < price?.min || offeredPrice > price?.max){
             return toast.error("Insert price between the price range")
         }
-        const offeredProperty = { date : moment().format('L'), email : user?.email , agent_email , title, location , image , agent_name , offeredPrice , status : "pending" }
+        const offeredProperty = { date : moment().format('L'), email : user?.email , buyer_name : user?.displayName, agent_email , title, location , image , agent_name , offeredPrice , status : "pending" }
         const res = await axiosPublic.post("/offeredProperties" , offeredProperty);
         console.log(res.data)
         if(res.data.insertedId){
