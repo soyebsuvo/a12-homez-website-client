@@ -34,7 +34,7 @@ export default function AddPropertyPage() {
                 'content-type': 'multipart/form-data'
             }
         })
-        const newProperty = { date: moment().format('L'), email: user?.email, title, location, image : res.data.data.display_url, agent_name, agent_image, price: { min : minPrice,max : maxPrice }, desc, verification_status: false }
+        const newProperty = { date: moment().format('L'), agent_email: user?.email, title, location, image : res.data.data.display_url, agent_name, agent_image, price: { min : minPrice,max : maxPrice }, desc, status: "pending" }
         console.log(newProperty)
  
         if (res.data.success) {

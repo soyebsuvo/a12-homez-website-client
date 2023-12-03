@@ -26,13 +26,13 @@ export default function PropertyCard({item}) {
           {item?.location}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-            <div className='flex justify-start items-center gap-2'>
+            <section className='flex justify-start items-center gap-2'>
                 <img className='w-10 h-10 rounded-full border' src={item?.agent_image} alt="N/A" />
-                <div className='flex flex-col'>
+                <section className='flex flex-col'>
                     <span>Agent</span>
                     <span>{item?.agent_name}</span>
-                </div>
-            </div>
+                </section>
+            </section>
           {/* Agent - {item?.agent_name} */}
         </Typography>
       </CardContent>

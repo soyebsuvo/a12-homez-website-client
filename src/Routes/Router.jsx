@@ -15,6 +15,7 @@ import PropertyBoughtPage from "../Pages/Dashboard/UserPanel/PropertyBoughtPage"
 import AddPropertyPage from "../Pages/Dashboard/AgentPanel/AddPropertyPage";
 import AgentAddedProperty from "../Pages/Dashboard/AgentPanel/AgentAddedProperty";
 import UpdateProperty from "../Pages/Dashboard/AgentPanel/UpdateProperty";
+import RequestedProperties from "../Pages/Dashboard/AgentPanel/RequestedProperties";
 
 const router = createBrowserRouter([
     {
@@ -82,6 +83,10 @@ const router = createBrowserRouter([
                 path : "/dashboard/updateProperty/:id",
                 element : <UpdateProperty></UpdateProperty>,
                 loader : ({params}) => fetch(`http://localhost:5000/properties/${params.id}`)
+            },
+            {
+                path : "/dashboard/requestedProperties",
+                element : <RequestedProperties></RequestedProperties>
             }
         ]
     }

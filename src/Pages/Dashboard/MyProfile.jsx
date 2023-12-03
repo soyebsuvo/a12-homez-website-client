@@ -12,10 +12,10 @@ export default function MyProfile() {
     // const axiosPublic = useAxiosPublic();
     const { user } = useContext(AuthContext);
   const [ wishlist , isPending] = useWishlist();
-  const [ allProperties ] = useAllProperties();
+  const [ allProperties , isAllPropertiesPending ] = useAllProperties();
     const role = "agent";
     // console.log(wishlistCount)
-    if(isPending){
+    if(isPending || isAllPropertiesPending){
         return <Loader></Loader>
     }
     return (

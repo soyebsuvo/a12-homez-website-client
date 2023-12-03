@@ -12,14 +12,14 @@ export default function OfferPage() {
     const property = useLoaderData();
     const navigate = useNavigate();
     // console.log(property)
-    const { agent_name, title, location, price , image} = property || {};
+    const { agent_name, title, location, price , image , agent_email } = property || {};
     const handleOfferSubmit = async (e) => {
         e.preventDefault();
         const offeredPrice = e.target.price.value;
         if(offeredPrice < price?.min || offeredPrice > price?.max){
             return toast.error("Insert price between the price range")
         }
-        const offeredProperty = { date : moment().format('L'), email : user?.email , title, location , image , agent_name , offeredPrice , status : "pending" }
+        const offeredProperty = { date : moment().format('L'), email : user?.email , agent_email , title, location , image , agent_name , offeredPrice , status : "pending" }
         const res = await axiosPublic.post("/offeredProperties" , offeredProperty);
         console.log(res.data)
         if(res.data.insertedId){

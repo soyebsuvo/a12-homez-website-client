@@ -8,8 +8,8 @@ export default function PropertyDetails() {
     const { user } = useContext(AuthContext);
     const axiosPublic = useAxiosPublic();
     const property = useLoaderData();
-    const { agent_name, agent_image, title, image, location, price, desc , verification_status } = property || {};
-    const wishItem = { email : user?.email, agent_name, agent_image, title, image, location, price, desc, verification_status };
+    const { agent_name, agent_image, title, image, location, price, desc , agent_email, verification_status } = property || {};
+    const wishItem = { email : user?.email, agent_name, agent_image, title, agent_email , image, location, price, desc, verification_status };
     const handleAddToWishlist = async () => {
         const res = await axiosPublic.post("/wishlist" , wishItem);
         console.log(res.data)
