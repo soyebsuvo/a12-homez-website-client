@@ -32,7 +32,7 @@ const router = createBrowserRouter([
             },
             {
                 path : '/allproperties',
-                element : <AllProperties></AllProperties>
+                element : <PrivateRoute><AllProperties></AllProperties></PrivateRoute>
             },
             {
                 path : "/propertyDetails/:id",

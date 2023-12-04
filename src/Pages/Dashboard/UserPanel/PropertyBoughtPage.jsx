@@ -3,6 +3,7 @@ import usePropertyBought from "../../../Hooks/usePropertyBought"
 
 export default function PropertyBoughtPage() {
     const [propertyBought, isPending] = usePropertyBought();
+    const totalPrice = propertyBought.reduce((total , item) => total + parseInt(item.offeredPrice), 0)
     if (isPending) {
         return <Loader></Loader>
     }
@@ -10,6 +11,10 @@ export default function PropertyBoughtPage() {
         <div className="py-8 md:px-8">
             <div className="mb-6">
                 <h2 className="text-center font-bold text-4xl">Offered Properties</h2>
+            </div>
+            <div className="flex justify-between items-center mb-5">
+                <h3 className="text-2xl font-bold">Total Price : ${totalPrice.toFixed(2)}</h3>
+                <button className="text-white bg-[#EB6753] hover:bg-[#EB6753] focus:ring-4 focus:outline-none focus:ring-[#EB675399] font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-[#EB6753] dark:hover:bg-[#EB6753] dark:focus:ring-[#EB675399]">Pay</button>
             </div>
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">

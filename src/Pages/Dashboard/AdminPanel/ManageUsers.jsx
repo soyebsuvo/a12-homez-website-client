@@ -71,11 +71,11 @@ export default function ManageUsers() {
                     .then(res => {
                         if (res.data.modifiedCount) {
                             refetch();
-                            // Swal.fire(
-                            //     'Done!',
-                            //     `${name} is now an Admin`,
-                            //     'success'
-                            // )
+                            Swal.fire(
+                                'Done!',
+                                `Marked as a fraud User`,
+                                'success'
+                            )
                         }
                     })
             }
