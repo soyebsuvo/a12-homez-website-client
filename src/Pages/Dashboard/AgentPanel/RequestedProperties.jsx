@@ -8,7 +8,7 @@ import { Helmet } from "react-helmet-async";
 export default function RequestedProperties() {
     const axiosSecure = useAxiosSecure();
     const [requestedProperties, isPending, refetch] = useRequestedProperty();
-    const handleAccept = (id, image, title) => {
+    const handleAccept = (id, location, title) => {
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -19,7 +19,7 @@ export default function RequestedProperties() {
             confirmButtonText: 'Yes, Accept it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axiosSecure.patch(`/requested/accept/${id}?image=${image}&title=${title}`)
+                axiosSecure.patch(`/requested/accept/${id}?image=${location}&title=${title}`)
                     .then(res => {
                         if (res.data.modifiedCount) {
                             refetch();
@@ -122,7 +122,7 @@ export default function RequestedProperties() {
                                     <button>{item?.status}</button>
                                 </td>
                                 <td className="px-3 py-4 text-center">
-                                    {item?.status === 'accepted' ? "Accepted" : item?.status === 'rejected' ? '' : <button onClick={() => handleAccept(item?._id, item?.image, item?.title)} className="border rounded-full px-4 py-1 bg-green-300 text-black hover:bg-green-400">{item?.status === 'accepted' ? 'Accepted' : "Accept"}</button>}
+                                    {item?.status === 'accepted' ? "Accepted" : item?.status === 'rejected' ? '' : <button onClick={() => handleAccept(item?._id, item?.location, item?.title)} className="border rounded-full px-4 py-1 bg-green-300 text-black hover:bg-green-400">{item?.status === 'accepted' ? 'Accepted' : "Accept"}</button>}
                                 </td>
                                 <td className="px-3 py-4 text-center">
                                     {item?.status === 'rejected' ? 'Rejected' : item?.status === 'accepted' ? "" : <button onClick={() => handleReject(item?._id, item?.image, item?.title)} className="border rounded-full px-4 py-1 bg-red-300 text-black hover:bg-red-400">{item?.status === 'rejected' ? 'Rejected' : 'Reject'}</button>}

@@ -8,8 +8,8 @@ import { useContext } from 'react';
 import { AuthContext } from '../../Providers/AuthProvider/AuthProvider';
 import useAxiosPublic from '../../Hooks/useAxiosPublic';
 import { Helmet } from 'react-helmet-async';
-const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
-const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
+// const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+// const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 export default function Register() {
     const axiosPublic = useAxiosPublic();
     const { createUser, googleLogin, updateUserProfile } = useContext(AuthContext);
@@ -20,18 +20,18 @@ export default function Register() {
     } = useForm();
     const onSubmit = async (data) => {
         console.log(data)
-        const res = await axiosPublic.post(image_hosting_api, { image: data?.image[0] }, {
-            headers: {
-                "content-type": "multipart/form-data"
-            }
-        })
+        // const res = await axiosPublic.post(image_hosting_api, { image: data?.image[0] }, {
+        //     headers: {
+        //         "content-type": "multipart/form-data"
+        //     }
+        // })
         // console.log(res.data.data.display_url)
-        if (res.data.success) {
+        // if (res.data.success) {
             createUser(data.email, data.password)
                 .then(result => {
                     const loggedUser = result.user;
                     console.log(loggedUser)
-                    updateUserProfile(data?.name, res.data.data.display_url)
+                    updateUserProfile(data?.name)
                         .then(() => {
                             console.log("user info updated")
                         })
@@ -45,7 +45,7 @@ export default function Register() {
                 .catch(error => {
                     console.log(error)
                 })
-        }
+        // }
 
 
     }

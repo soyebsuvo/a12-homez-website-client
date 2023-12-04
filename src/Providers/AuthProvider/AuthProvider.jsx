@@ -30,9 +30,10 @@ export default function AuthProvider({ children }) {
         return signInWithPopup(auth, googleProvider);
     }
 
-    const updateUserProfile = (name, image) => {
+    const updateUserProfile = (name) => {
         return updateProfile(auth.currentUser, {
-            displayName: name, photoURL: image
+            displayName: name,
+            //  photoURL: image
         })
     }
 

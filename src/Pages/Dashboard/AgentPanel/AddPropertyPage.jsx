@@ -15,27 +15,28 @@ export default function AddPropertyPage() {
     const { user } = useContext(AuthContext);
     const axiosSecure = useAxiosSecure()
     const navigate = useNavigate();
-    const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
-    const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
+    // const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+    // const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
+    
     const handleAddProperty = async (data) => {
         const title = data.title;
         const location = data.location;
-        const image = data.image;
+        // const image = data.image;
         const agent_image = user?.photoURL;
         const agent_name = user?.displayName;
         const minPrice = data.min_price;
         const maxPrice = data.max_price;
         const desc = data.desc;
 
-        const res = await axiosSecure.post(image_hosting_api, { image: image[0] }, {
-            headers: {
-                'content-type': 'multipart/form-data'
-            }
-        })
-        const newProperty = { date: moment().format('L'), agent_email: user?.email, title, location, image: res.data.data.display_url, agent_name, agent_image, price: { min: minPrice, max: maxPrice }, desc, verification_status: "unverified" }
+        // const res = await axiosSecure.post(image_hosting_api, { image: image[0] }, {
+        //     headers: {
+        //         'content-type': 'multipart/form-data'
+        //     }
+        // })
+        const newProperty = { date: moment().format('L'), agent_email: user?.email, title, location,  agent_name, agent_image, price: { min: minPrice, max: maxPrice }, desc, verification_status: "unverified" }
         console.log(newProperty)
 
-        if (res.data.success) {
+        // if (true) {
             const res = await axiosSecure.post("/properties", newProperty);
             console.log(res.data)
             if (res.data.insertedId) {
@@ -46,7 +47,7 @@ export default function AddPropertyPage() {
                 )
                 navigate("/dashboard/agentAddedProperty")
             }
-        }
+        // }
 
     }
     return (
@@ -98,7 +99,7 @@ export default function AddPropertyPage() {
 
                 <div>
                     <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="property_Image">Property Image</label>
-                    <input  {...register("image")} name="image" className="block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="default_size" type="file" required />
+                    <input  {...register("image")} name="image" className="block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="default_size" type="file" />
                 </div>
 
                 <button type="submit" className="text-white bg-[#EB6753] hover:bg-[#EB6753] focus:ring-4 focus:outline-none focus:ring-[#EB6753] font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-[#EB6753] dark:hover:bg-[#EB6753] dark:focus:ring-[#EB6753]">Add Property</button>
