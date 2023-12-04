@@ -5,6 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { Link } from 'react-router-dom';
 
 export default function Advertisement({item}) {
   return (
@@ -29,7 +30,7 @@ export default function Advertisement({item}) {
         </Typography>
       </CardContent>
       <CardActions className='flex justify-end'>
-        <Button sx={{color : '#EB6753'}} size="small">Details</Button>
+        <Link to={`/advertise/details/${item?._id}`}><Button sx={{color : '#EB6753'}} size="small">Details</Button></Link>
       </CardActions>
     </Card>
   );

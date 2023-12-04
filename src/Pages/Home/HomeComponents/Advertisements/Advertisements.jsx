@@ -10,6 +10,9 @@ export default function Advertisements() {
     } , [])
   return (
     <div className="py-12 px-20">
+      <div className="mb-8">
+        <h2 className="text-3xl font-semibold text-center">Advertisements</h2>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {
                 add?.map( item => <Advertisement key={item.id} item={item}></Advertisement>)

@@ -33,7 +33,7 @@ export default function AddPropertyPage() {
         //         'content-type': 'multipart/form-data'
         //     }
         // })
-        const newProperty = { date: moment().format('L'), agent_email: user?.email, title, location,  agent_name, agent_image, price: { min: minPrice, max: maxPrice }, desc, verification_status: "unverified" }
+        const newProperty = { date: moment().format('L'), agent_email: user?.email, title, location,  agent_name, agent_image, price: { min: minPrice, max: maxPrice }, desc, verification_status: "unverified" , add_status : false}
         console.log(newProperty)
 
         // if (true) {

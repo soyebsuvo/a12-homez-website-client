@@ -23,6 +23,7 @@ import AgentRoute from "./AgentRoute";
 import Payment from "../Pages/Dashboard/UserPanel/Payment";
 import MySoldProperties from "../Pages/Dashboard/AgentPanel/MySoldProperties";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
+import AdvertiseProperty from "../Pages/Dashboard/AdminPanel/AdvertiseProperty";
 
 const router = createBrowserRouter([
     {
@@ -41,6 +42,11 @@ const router = createBrowserRouter([
             {
                 path : "/propertyDetails/:id",
                 element : <PrivateRoute><PropertyDetails></PropertyDetails>,</PrivateRoute>,
+                loader : ({params}) => fetch(`https://a-12-homez-server.vercel.app/property/${params.id}`)
+            },
+            {
+                path : "/advertise/details/:id",
+                element : <PrivateRoute><PropertyDetails></PropertyDetails></PrivateRoute>,
                 loader : ({params}) => fetch(`https://a-12-homez-server.vercel.app/property/${params.id}`)
             },
             {
@@ -113,6 +119,10 @@ const router = createBrowserRouter([
             {
                 path : "/dashboard/manageUsers",
                 element : <AdminRoute><ManageUsers></ManageUsers></AdminRoute>
+            },
+            {
+                path : '/dashboard/advertiseProperty',
+                element : <AdminRoute><AdvertiseProperty></AdvertiseProperty></AdminRoute>
             }
         ]
     }

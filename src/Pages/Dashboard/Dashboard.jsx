@@ -8,6 +8,7 @@ import useWishlist from "../../Hooks/useWishlist";
 import { LiaSellcast } from "react-icons/lia";
 import useCheckRole from "../../Hooks/useCheckRole";
 import { Helmet } from "react-helmet-async";
+import { RiAdvertisementLine } from "react-icons/ri";
 
 
 export default function Dashboard() {
@@ -43,6 +44,7 @@ export default function Dashboard() {
             <NavLink to="/dashboard/manageProperty"><li className="flex items-center gap-2 font-bold py-1"><FaAd className="text-xl" />Manage Properties</li></NavLink>
             <NavLink to="/dashboard/manageUsers"><li className="flex items-center gap-2 font-bold py-1"><TiBusinessCard className="text-xl" />Manage Users</li></NavLink>
             <NavLink to="/dashboard/myReviews"><li className="flex items-center gap-2 font-bold py-1"><LiaSellcast className="text-xl" />Manage Reviews</li></NavLink>
+            <NavLink to="/dashboard/advertiseProperty"><li className="flex items-center gap-2 font-bold py-1"><RiAdvertisementLine  className="text-xl" />Advertise property</li></NavLink>
           </ul>}
         </div>
         {/* preview */}

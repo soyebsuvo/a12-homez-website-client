@@ -1,27 +1,19 @@
 import FirstSlide from "../Home/HomeComponents/Banner/FirstSlide";
 import PropertyCard from "./PropertyCard";
 import image from '../../assets/home-5-2.jpg';
-import { useQuery } from "@tanstack/react-query";
-import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import Loader from "../../Components/Loader";
 import { Helmet } from "react-helmet-async";
+import useVerifiedProperties from "../../Hooks/useVerifiedProperties";
 
 export default function AllProperties() {
-    const axiosSecure = useAxiosSecure();
     // const [allProperties, setAllProperties] = useState([]);
     // useEffect(() => {
     //     fetch('https://a-12-homez-server.vercel.app/properties')
     //         .then(res => res.json())
     //         .then(data => setAllProperties(data))
     // }, [])
-    const { data: allProperties, isPending } = useQuery({
-        queryKey: ["allPropertiesPage"],
-        queryFn: async () => {
-            const res = await axiosSecure.get(`/properties`);
-            return res.data;
-        }
-    })
-    if (isPending) {
+    const [ allVerifiedProperties , isAllVerifiedPropertiesPending ] = useVerifiedProperties();
+    if (isAllVerifiedPropertiesPending) {
         return <Loader></Loader>
     }
     return (
@@ -36,7 +28,7 @@ export default function AllProperties() {
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6 py-12 px-20">
                 {
-                    allProperties?.map(item => <PropertyCard key={item._id} item={item}></PropertyCard>)
+                    allVerifiedProperties?.map(item => <PropertyCard key={item._id} item={item}></PropertyCard>)
                 }
             </div>
 

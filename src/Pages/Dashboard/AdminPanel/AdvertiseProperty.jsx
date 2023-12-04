@@ -1,13 +1,13 @@
-import Swal from "sweetalert2";
-import Loader from "../../../Components/Loader";
-import useUnverifiedProperties from "../../../Hooks/useUnverifiedProperties"
-import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { Helmet } from "react-helmet-async";
+import useVerifiedProperties from "../../../Hooks/useVerifiedProperties";
+import Loader from "../../../Components/Loader";
+import Swal from "sweetalert2";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
-export default function ManageProperties() {
+export default function AdvertiseProperty() {
     const axiosSecure = useAxiosSecure();
-    const [unvefiedProperties, isUnvefiedPropertiesPending, refetch] = useUnverifiedProperties();
-    const handleVerify = (id) => {
+    const [ allVerifiedProperties , isAllVerifiedPropertiesPending , refetch] = useVerifiedProperties();
+    const handleAdvertise = (id) => {
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -15,16 +15,16 @@ export default function ManageProperties() {
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, Verify it!'
+            confirmButtonText: 'Yes, Advertise it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axiosSecure.patch(`/requested/verify/property/${id}`)
+                axiosSecure.patch(`/advertise/accept/${id}`)
                     .then(res => {
                         if (res.data.modifiedCount) {
                             refetch();
                             Swal.fire(
-                                'Verified!',
-                                'Offer has been verified.',
+                                'Published!',
+                                'Property has been Advertised.',
                                 'success'
                             )
                         }
@@ -32,7 +32,7 @@ export default function ManageProperties() {
             }
         })
     }
-    const handleReject = (id) => {
+    const handleRemove = (id) => {
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -40,16 +40,16 @@ export default function ManageProperties() {
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, Reject it!'
+            confirmButtonText: 'Yes, Remove it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axiosSecure.patch(`/requested/reject/property/${id}`)
+                axiosSecure.patch(`/advertise/remove/${id}`)
                     .then(res => {
                         if (res.data.modifiedCount) {
                             refetch();
                             Swal.fire(
-                                'Rejected!',
-                                'Offer has been Rejected.',
+                                'Removed!',
+                                'Property has been removed from advertise.',
                                 'success'
                             )
                         }
@@ -57,16 +57,17 @@ export default function ManageProperties() {
             }
         })
     }
-    if (isUnvefiedPropertiesPending) {
+
+    if(isAllVerifiedPropertiesPending){
         return <Loader></Loader>
     }
     return (
         <div className="py-8 md:px-8">
             <Helmet>
-                <title>Homez | Dashboard - Manage Property</title>
+                <title>Homez | Dashboard - Advertise</title>
             </Helmet>
             <div className="mb-6">
-                <h2 className="text-center font-bold text-4xl">Manage Properties</h2>
+                <h2 className="text-center font-bold text-4xl">Advertise Properties</h2>
             </div>
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -85,14 +86,14 @@ export default function ManageProperties() {
                                 Price
                             </th>
                             <th scope="col" className="px-3 py-3 text-center">
-                                Status
+                                Action
                             </th>
 
                         </tr>
                     </thead>
                     <tbody>
                         {
-                            unvefiedProperties?.map((item, index) => <tr key={item?._id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            allVerifiedProperties?.map((item, index) => <tr key={item?._id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                 <td className="w-2 py-4 text-center">
                                     {index + 1}
                                 </td>
@@ -113,9 +114,9 @@ export default function ManageProperties() {
                                     ${item?.price?.min} - ${item?.price?.max}
                                 </td>
                                 <td className="py-4 text-center">
-                                    {item?.verification_status !== 'unverified' && <button>{item?.verification_status}</button>}
-                                    {item?.verification_status === 'unverified' && <button onClick={() => handleVerify(item?._id)} className="border rounded-full px-4 py-1 bg-green-300 text-black hover:bg-green-400 mr-4 text-sm">{item?.status === 'verified' ? 'Verified' : "Verify"}</button>}
-                                    {item?.verification_status === 'unverified' && <button onClick={() => handleReject(item?._id)} className="border rounded-full px-4 py-1 bg-red-300 text-black hover:bg-red-400 text-sm">{item?.status === 'rejected' ? 'Rejected' : 'Reject'}</button>}
+                                    {/* {item?.verification_status !== 'unverified' && <button>{item?.verification_status}</button>} */}
+                                    { item?.add_status ? <button onClick={() => handleRemove(item?._id)} className="border rounded-full px-4 py-1 bg-red-300 text-black hover:bg-red-400 text-sm">Remove</button>
+                                    :<button onClick={() => handleAdvertise(item?._id)} className="border rounded-full px-4 py-1 bg-green-300 text-black hover:bg-green-400 mr-4 text-sm">Advertise</button>}
                                 </td>
 
                             </tr>)
