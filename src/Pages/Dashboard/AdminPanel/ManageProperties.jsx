@@ -2,6 +2,7 @@ import Swal from "sweetalert2";
 import Loader from "../../../Components/Loader";
 import useUnverifiedProperties from "../../../Hooks/useUnverifiedProperties"
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import { Helmet } from "react-helmet-async";
 
 export default function ManageProperties() {
     const axiosSecure = useAxiosSecure();
@@ -61,6 +62,9 @@ export default function ManageProperties() {
     }
     return (
         <div className="py-8 md:px-8">
+            <Helmet>
+        <title>Homez | Dashboard - Manage Property</title>
+      </Helmet>
             <div className="mb-6">
                 <h2 className="text-center font-bold text-4xl">Manage Properties</h2>
             </div>

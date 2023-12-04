@@ -9,19 +9,23 @@ import { TiBusinessCard } from "react-icons/ti";
 import useCheckRole from "../../Hooks/useCheckRole";
 import useRequestedProperty from "../../Hooks/useRequestedProperty";
 import useUsers from "../../Hooks/useUsers";
+import { Helmet } from "react-helmet-async";
 
 export default function MyProfile() {
-    const [ requestedProperties ] = useRequestedProperty();
-    const [ role ] = useCheckRole();
+    const [requestedProperties] = useRequestedProperty();
+    const [role] = useCheckRole();
     const { user } = useContext(AuthContext);
-  const [ wishlist , isPending] = useWishlist();
-  const [ allProperties , isAllPropertiesPending ] = useAllProperties();
-  const [ users ] = useUsers();
-    if(isPending || isAllPropertiesPending){
+    const [wishlist, isPending] = useWishlist();
+    const [allProperties, isAllPropertiesPending] = useAllProperties();
+    const [users] = useUsers();
+    if (isPending || isAllPropertiesPending) {
         return <Loader></Loader>
     }
     return (
         <div className="md:px-8">
+            <Helmet>
+                <title>Homez | Dashboard - Profile</title>
+            </Helmet>
             <div className="mb-5 flex gap-3 items-center mt-4">
                 <div>
                     <img className="w-12 h-12 rounded-full" src={user?.photoURL} alt="Profile" />
@@ -34,9 +38,9 @@ export default function MyProfile() {
             <div className="mb-4">
                 {role && <p className="text-2xl text-gray-500">You are an {role}</p>}
             </div>
-           <div className="grid grid-cols-4 gap-3">
+            <div className="grid grid-cols-4 gap-3">
 
-                { !role && <div className="shadow p-6 flex justify-between items-center">
+                {!role && <div className="shadow p-6 flex justify-between items-center">
                     <div>
                         <p className="text-sm text-center text-gray-600">Wishlist</p>
                         <h3 className="text-3xl font-bold text-center">{wishlist?.length}</h3>
@@ -45,36 +49,36 @@ export default function MyProfile() {
                         <FaLuggageCart className="text-3xl"></FaLuggageCart>
                     </div>
                 </div>}
-                { role === 'agent' && <div className="shadow p-6 flex justify-between items-center">
+                {role === 'agent' && <div className="shadow p-6 flex justify-between items-center">
                     <div>
                         <p className="text-sm text-center text-gray-600">Added Properties</p>
                         <h3 className="text-3xl font-bold text-center">{allProperties?.length}</h3>
                     </div>
                     <div>
-                    <TiBusinessCard className="text-3xl" />
+                        <TiBusinessCard className="text-3xl" />
                     </div>
                 </div>}
-                { role === 'agent' &&
+                {role === 'agent' &&
                     <div className="shadow p-6 flex justify-between items-center">
-                    <div>
-                        <p className="text-sm text-center text-gray-600">Requested Properties</p>
-                        <h3 className="text-3xl font-bold text-center">{requestedProperties?.length}</h3>
+                        <div>
+                            <p className="text-sm text-center text-gray-600">Requested Properties</p>
+                            <h3 className="text-3xl font-bold text-center">{requestedProperties?.length}</h3>
+                        </div>
+                        <div>
+                            <TiBusinessCard className="text-3xl" />
+                        </div>
                     </div>
-                    <div>
-                    <TiBusinessCard className="text-3xl" />
-                    </div>
-                </div>
                 }
-                { role === 'admin' &&
+                {role === 'admin' &&
                     <div className="shadow p-6 flex justify-between items-center">
-                    <div>
-                        <p className="text-sm text-center text-gray-600">Users</p>
-                        <h3 className="text-3xl font-bold text-center">{users?.length}</h3>
+                        <div>
+                            <p className="text-sm text-center text-gray-600">Users</p>
+                            <h3 className="text-3xl font-bold text-center">{users?.length}</h3>
+                        </div>
+                        <div>
+                            <FaUsers className="text-3xl" />
+                        </div>
                     </div>
-                    <div>
-                    <FaUsers className="text-3xl" />
-                    </div>
-                </div>
                 }
             </div>
 

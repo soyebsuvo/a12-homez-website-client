@@ -4,7 +4,7 @@ import Advertisement from "./Advertisement"
 export default function Advertisements() {
     const [ add , setAdd ] = useState([])
     useEffect(() => {
-        fetch('http://localhost:5000/advertisements')
+        fetch('https://a-12-homez-server.vercel.app/advertisements')
         .then(res => res.json())
         .then(data => setAdd(data))
     } , [])

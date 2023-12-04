@@ -6,7 +6,7 @@ import useAxiosSecure from "./useAxiosSecure";
 export default function useAllProperties() {
     const { user } = useContext(AuthContext);
     const axiosSecure = useAxiosSecure();
-    const {data : allProperties , isPending : isAllPropertiesPending , refetch} = useQuery({
+    const {data : allProperties = [] , isPending : isAllPropertiesPending , refetch} = useQuery({
         queryKey : ['allproperties'],
         queryFn : async () => {
             const res = await axiosSecure.get(`/properties?email=${user?.email}`);

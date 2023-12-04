@@ -2,6 +2,7 @@ import Swal from "sweetalert2";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useUsers from "../../../Hooks/useUsers";
 import Loader from "../../../Components/Loader";
+import { Helmet } from "react-helmet-async";
 
 export default function ManageUsers() {
     const [users, isUsersPending, refetch] = useUsers();
@@ -113,6 +114,9 @@ export default function ManageUsers() {
     }
     return (
         <div className="py-8 md:px-8">
+            <Helmet>
+        <title>Homez | Dashboard - Manage Users</title>
+      </Helmet>
             <div className="mb-6">
                 <h2 className="text-center font-bold text-4xl">Manage Properties</h2>
             </div>

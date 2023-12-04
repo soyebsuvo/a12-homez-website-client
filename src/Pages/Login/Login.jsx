@@ -7,12 +7,13 @@ import { FcGoogle } from 'react-icons/fc';
 import { useContext } from 'react';
 import { AuthContext } from '../../Providers/AuthProvider/AuthProvider';
 import useAxiosPublic from '../../Hooks/useAxiosPublic';
+import { Helmet } from 'react-helmet-async';
 
 export default function Login() {
     const axiosPublic = useAxiosPublic();
     const navigate = useNavigate();
     const location = useLocation();
-    const { login , googleLogin} = useContext(AuthContext);
+    const { login, googleLogin } = useContext(AuthContext);
     const {
         register,
         handleSubmit,
@@ -23,7 +24,7 @@ export default function Login() {
             .then(result => {
                 const loggedUser = result.user;
                 console.log(loggedUser);
-                
+
                 navigate(location.state ? location.state : "/")
             })
             .catch(error => {
@@ -33,22 +34,25 @@ export default function Login() {
 
     const handleOtherLogin = () => {
         googleLogin()
-        .then(result => {
-            console.log(result.user)
-            navigate(location.state ? location.state : "/");
-            const userInfo = { name: result?.user?.displayName, email: result?.user?.email }
+            .then(result => {
+                console.log(result.user)
+                navigate(location.state ? location.state : "/");
+                const userInfo = { name: result?.user?.displayName, email: result?.user?.email }
                 axiosPublic.post('/users', userInfo)
-                .then(res => {
-                    console.log(res.data)
-                })
-        })
-        .catch(error => {
-            console.log(error)
-        })
+                    .then(res => {
+                        console.log(res.data)
+                    })
+            })
+            .catch(error => {
+                console.log(error)
+            })
     }
 
     return (
         <div className='md:px-20 py-8 flex gap-16 justify-center items-center min-h-[99vh]'>
+            <Helmet>
+                <title>Homez | Login</title>
+            </Helmet>
             <div className='w-1/2 md:px-8'>
                 <div className="p-8 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
                     <div className='pb-8'>

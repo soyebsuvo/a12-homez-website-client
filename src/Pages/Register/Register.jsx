@@ -7,11 +7,12 @@ import { FcGoogle } from 'react-icons/fc';
 import { useContext } from 'react';
 import { AuthContext } from '../../Providers/AuthProvider/AuthProvider';
 import useAxiosPublic from '../../Hooks/useAxiosPublic';
+import { Helmet } from 'react-helmet-async';
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 export default function Register() {
     const axiosPublic = useAxiosPublic();
-    const { createUser, googleLogin , updateUserProfile} = useContext(AuthContext);
+    const { createUser, googleLogin, updateUserProfile } = useContext(AuthContext);
     const navigate = useNavigate();
     const {
         register,
@@ -30,10 +31,10 @@ export default function Register() {
                 .then(result => {
                     const loggedUser = result.user;
                     console.log(loggedUser)
-                    updateUserProfile(data?.name , res.data.data.display_url)
-                    .then(() => {
-                        console.log("user info updated")
-                    })
+                    updateUserProfile(data?.name, res.data.data.display_url)
+                        .then(() => {
+                            console.log("user info updated")
+                        })
                     navigate("/")
                     const userInfo = { name: data?.name, email: data?.email };
                     axiosPublic.post('/users', userInfo)
@@ -68,6 +69,9 @@ export default function Register() {
 
     return (
         <div className='md:px-20 py-8 flex flex-row-reverse gap-16 justify-center items-center min-h-[99vh]'>
+            <Helmet>
+                <title>Homez | Register</title>
+            </Helmet>
             <div className='w-1/2 md:px-8'>
                 <div className="p-8 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
                     <div className='pb-8'>

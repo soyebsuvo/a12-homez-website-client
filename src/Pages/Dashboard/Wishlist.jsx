@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import useWishlist from "../../Hooks/useWishlist";
 import { Link } from "react-router-dom";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import { Helmet } from "react-helmet-async";
 
 
 export default function Wishlist() {
@@ -41,6 +42,9 @@ export default function Wishlist() {
     }
     return (
         <div className="md:px-10">
+            <Helmet>
+        <title>Homez | Dashboard - Wishlist</title>
+      </Helmet>
             <div className="py-4 mb-5">
                 <h2 className="text-center text-4xl font-bold">Wishlist</h2>
             </div>
@@ -51,7 +55,7 @@ export default function Wishlist() {
 
                             <div key={item?._id} className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                                 <div className="relative">
-                                    <img className="rounded-t-lg" src={item?.image} alt="" />
+                                    <img className="rounded-t-lg w-full" src={item?.image} alt="" />
                                     <p className="absolute bottom-0 bg-[rgba(0,0,0,.5)] text-white font-bold w-full px-4">${item?.price?.min} - ${item?.price?.max}</p>
                                 </div>
                                 <div className="p-5">

@@ -6,6 +6,7 @@ import { AuthContext } from "../../../Providers/AuthProvider/AuthProvider";
 import moment from "moment";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 export default function CheckoutForm() {
     const navigate = useNavigate();
@@ -84,6 +85,9 @@ export default function CheckoutForm() {
     }
     return (
         <form onSubmit={handleSubmit}>
+            <Helmet>
+        <title>Homez | Dashboard - Checkout Form</title>
+      </Helmet>
             {clientSecret && <CardElement
                 options={{
                     style: {

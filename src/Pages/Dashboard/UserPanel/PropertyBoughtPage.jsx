@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import Loader from "../../../Components/Loader";
 import usePropertyBought from "../../../Hooks/usePropertyBought"
+import { Helmet } from "react-helmet-async";
 
 export default function PropertyBoughtPage() {
     const [propertyBought, isPending] = usePropertyBought();
@@ -10,6 +11,9 @@ export default function PropertyBoughtPage() {
     }
     return (
         <div className="py-8 md:px-8">
+            <Helmet>
+                <title>Homez | Dashboard - Property Bought</title>
+            </Helmet>
             <div className="mb-6">
                 <h2 className="text-center font-bold text-4xl">Offered Properties</h2>
             </div>

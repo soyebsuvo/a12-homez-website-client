@@ -22,11 +22,13 @@ import AdminRoute from "./AdminRoute";
 import AgentRoute from "./AgentRoute";
 import Payment from "../Pages/Dashboard/UserPanel/Payment";
 import MySoldProperties from "../Pages/Dashboard/AgentPanel/MySoldProperties";
+import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 
 const router = createBrowserRouter([
     {
         path : "/",
         element : <MainLayouts></MainLayouts>,
+        errorElement : <ErrorPage></ErrorPage>,
         children : [
             {
                 path : "/",
@@ -39,7 +41,7 @@ const router = createBrowserRouter([
             {
                 path : "/propertyDetails/:id",
                 element : <PrivateRoute><PropertyDetails></PropertyDetails>,</PrivateRoute>,
-                loader : ({params}) => fetch(`http://localhost:5000/property/${params.id}`)
+                loader : ({params}) => fetch(`https://a-12-homez-server.vercel.app/property/${params.id}`)
             },
             {
                 path : '/login',
@@ -54,6 +56,7 @@ const router = createBrowserRouter([
     {
         path : '/dashboard',
         element : <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
+        errorElement : <ErrorPage></ErrorPage>,
         children : [
             {
                 path : "/dashboard",
@@ -70,7 +73,7 @@ const router = createBrowserRouter([
             {
                 path : "/dashboard/makeOffer/:id",
                 element : <PrivateRoute><OfferPage></OfferPage></PrivateRoute>,
-                loader : ({params}) => fetch(`http://localhost:5000/wishlist/${params.id}`)
+                loader : ({params}) => fetch(`https://a-12-homez-server.vercel.app/wishlist/${params.id}`)
             },
             {
                 path : "/dashboard/propertyBought",
@@ -92,7 +95,7 @@ const router = createBrowserRouter([
             {
                 path : "/dashboard/updateProperty/:id",
                 element : <AgentRoute><UpdateProperty></UpdateProperty>,</AgentRoute>,
-                loader : ({params}) => fetch(`http://localhost:5000/properties/${params.id}`)
+                loader : ({params}) => fetch(`https://a-12-homez-server.vercel.app/properties/${params.id}`)
             },
             {
                 path : "/dashboard/requestedProperties",

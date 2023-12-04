@@ -7,6 +7,7 @@ import { Link, NavLink, Outlet } from "react-router-dom";
 import useWishlist from "../../Hooks/useWishlist";
 import { LiaSellcast } from "react-icons/lia";
 import useCheckRole from "../../Hooks/useCheckRole";
+import { Helmet } from "react-helmet-async";
 
 
 export default function Dashboard() {
@@ -15,6 +16,9 @@ export default function Dashboard() {
   const [wishlist] = useWishlist();
   return (
     <div className="md:px-12 h-screen">
+      <Helmet>
+        <title>Homez | Dashboard</title>
+      </Helmet>
       <div className="grid grid-cols-12 h-full">
         {/* sidenav */}
         <div className="col-span-3 bg-[#eee] h-full">

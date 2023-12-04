@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 export default function AddPropertyPage() {
     const {
@@ -25,15 +26,15 @@ export default function AddPropertyPage() {
         const minPrice = data.min_price;
         const maxPrice = data.max_price;
         const desc = data.desc;
-        
+
         const res = await axiosSecure.post(image_hosting_api, { image: image[0] }, {
             headers: {
                 'content-type': 'multipart/form-data'
             }
         })
-        const newProperty = { date: moment().format('L'), agent_email: user?.email, title, location, image : res.data.data.display_url, agent_name, agent_image, price: { min : minPrice,max : maxPrice }, desc, verification_status: "unverified" }
+        const newProperty = { date: moment().format('L'), agent_email: user?.email, title, location, image: res.data.data.display_url, agent_name, agent_image, price: { min: minPrice, max: maxPrice }, desc, verification_status: "unverified" }
         console.log(newProperty)
- 
+
         if (res.data.success) {
             const res = await axiosSecure.post("/properties", newProperty);
             console.log(res.data)
@@ -50,6 +51,9 @@ export default function AddPropertyPage() {
     }
     return (
         <div className="py-8 md:px-20">
+            <Helmet>
+                <title>Homez | Dashboard - Add Property</title>
+            </Helmet>
             <div className="mb-6">
                 <h2 className="text-4xl font-bold text-center">Add A Property</h2>
             </div>

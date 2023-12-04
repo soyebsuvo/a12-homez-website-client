@@ -5,7 +5,7 @@ import useAxiosSecure from './useAxiosSecure'
 export default function useRequestedProperty() {    
     const { user } = useContext(AuthContext);
     const axiosSecure = useAxiosSecure();
-    const { data : requestedProperties , isPending , refetch} = useQuery({
+    const { data : requestedProperties = [] , isPending , refetch} = useQuery({
         queryKey : ['requestedProperties'],
         queryFn : async () => {
             const res = await axiosSecure.get(`/requestedProperties?email=${user?.email}`)

@@ -4,6 +4,7 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useContext } from "react";
 import { AuthContext } from "../../../Providers/AuthProvider/AuthProvider";
 import { useLoaderData, useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 export default function UpdateProperty() {
     const property = useLoaderData();
@@ -42,6 +43,9 @@ export default function UpdateProperty() {
     }
   return (
     <div className="py-8 md:px-20">
+        <Helmet>
+        <title>Homez | Dashboard - Update Property</title>
+      </Helmet>
             <div className="mb-6">
                 <h2 className="text-4xl font-bold text-center">Add A Property</h2>
             </div>

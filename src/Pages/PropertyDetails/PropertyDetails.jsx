@@ -3,28 +3,32 @@ import Swal from "sweetalert2";
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProvider/AuthProvider";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import { Helmet } from "react-helmet-async";
 
 export default function PropertyDetails() {
     const { user } = useContext(AuthContext);
     const axiosSecure = useAxiosSecure();
     const property = useLoaderData();
-    const { agent_name, agent_image, title, image, location, price, desc , agent_email, verification_status } = property || {};
-    const wishItem = { email : user?.email, agent_name, agent_image, title, agent_email , image, location, price, desc, verification_status };
+    const { agent_name, agent_image, title, image, location, price, desc, agent_email, verification_status } = property || {};
+    const wishItem = { email: user?.email, agent_name, agent_image, title, agent_email, image, location, price, desc, verification_status };
     const handleAddToWishlist = async () => {
-        const res = await axiosSecure.post("/wishlist" , wishItem);
+        const res = await axiosSecure.post("/wishlist", wishItem);
         console.log(res.data)
-        if(res.data.insertedId){
+        if (res.data.insertedId) {
             Swal.fire(
                 'Done',
                 `${title} added to wishlist`,
                 'success'
-              )
+            )
         }
     }
     return (
         <div className="md:px-20 py-8">
+            <Helmet>
+                <title>Homez | Property Details</title>
+            </Helmet>
             <div className="flex gap-10">
-                <div style={{ height : '560px'}} className="w-4/6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                <div style={{ height: '560px' }} className="w-4/6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                     <div>
                         <img className="p-5 rounded-t-lg w-full h-[400px]" src={image} alt="product image" />
                     </div>

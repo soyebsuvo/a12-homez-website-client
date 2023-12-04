@@ -4,6 +4,7 @@ import { FaTrash } from "react-icons/fa";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Loader from "../../../Components/Loader";
+import { Helmet } from "react-helmet-async";
 
 export default function AgentAddedProperty() {
     const axiosSecure = useAxiosSecure();
@@ -42,6 +43,9 @@ export default function AgentAddedProperty() {
     }
   return (
     <div className="md:px-10">
+        <Helmet>
+        <title>Homez | Dashboard - Added Property</title>
+      </Helmet>
             <div className="py-4 mb-5">
                 <h2 className="text-center text-4xl font-bold">My Added Properties</h2>
             </div>

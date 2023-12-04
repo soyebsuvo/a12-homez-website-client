@@ -3,7 +3,7 @@ import useAxiosSecure from "./useAxiosSecure";
 
 export default function useUnverifiedProperties() {
     const axiosSecure = useAxiosSecure();
-    const {data : unvefiedProperties , isPending : isUnvefiedPropertiesPending , refetch} = useQuery({
+    const {data : unvefiedProperties = [] , isPending : isUnvefiedPropertiesPending , refetch} = useQuery({
         queryKey : ['UnverifiedProperties'],
         queryFn : async () => {
             const res = await axiosSecure.get(`/unverifiedProperties`);

@@ -5,6 +5,7 @@ import moment from "moment/moment";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import { Helmet } from "react-helmet-async";
 
 export default function OfferPage() {
     const {user} = useContext(AuthContext);
@@ -33,6 +34,9 @@ export default function OfferPage() {
     }
     return (
         <div className="py-8 md:px-20">
+            <Helmet>
+        <title>Homez | Dashboard - Offer</title>
+      </Helmet>
             <div className="mb-6">
                 <h2 className="text-4xl font-bold text-center">Make An Offer</h2>
             </div>
