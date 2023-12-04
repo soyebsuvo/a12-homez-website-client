@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { GoogleAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import auth from "../../Firebase/firebase.config";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
-export const AuthContext = createContext(null);
+export const AuthContext = createContext({});
 export default function AuthProvider({ children }) {
     const axiosPublic = useAxiosPublic();
     const [user, setUser] = useState(null);

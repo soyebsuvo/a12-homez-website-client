@@ -16,7 +16,7 @@ export default function OfferPage() {
     const handleOfferSubmit = async (e) => {
         e.preventDefault();
         const offeredPrice = e.target.price.value;
-        if(offeredPrice < price?.min || offeredPrice > price?.max){
+        if(offeredPrice < parseInt(price?.min) || offeredPrice > parseInt(price?.max)){
             return toast.error("Insert price between the price range")
         }
         const offeredProperty = { date : moment().format('L'), email : user?.email , buyer_name : user?.displayName, agent_email , title, location , image , agent_name , offeredPrice , status : "pending" }
