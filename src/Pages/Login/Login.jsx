@@ -19,12 +19,8 @@ export default function Login() {
         handleSubmit,
     } = useForm();
     const onSubmit = (data) => {
-        console.log(data)
         login(data.email, data.password)
-            .then(result => {
-                const loggedUser = result.user;
-                console.log(loggedUser);
-
+            .then(() => {
                 navigate(location.state ? location.state : "/")
             })
             .catch(error => {

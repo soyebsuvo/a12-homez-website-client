@@ -3,11 +3,16 @@ import useVerifiedProperties from "../../../Hooks/useVerifiedProperties";
 import Loader from "../../../Components/Loader";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import toast from "react-hot-toast";
 
 export default function AdvertiseProperty() {
     const axiosSecure = useAxiosSecure();
     const [ allVerifiedProperties , isAllVerifiedPropertiesPending , refetch] = useVerifiedProperties();
     const handleAdvertise = (id) => {
+        const addedItems = allVerifiedProperties.filter(item => item?.add_status);
+        if(addedItems.length > 5){
+            return toast.error("You can not advertise more than 6 property")
+        }
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",

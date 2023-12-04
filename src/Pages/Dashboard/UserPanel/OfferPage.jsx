@@ -12,7 +12,6 @@ export default function OfferPage() {
     const axiosSecure = useAxiosSecure();
     const property = useLoaderData();
     const navigate = useNavigate();
-    // console.log(property)
     const { agent_name, title, location, price , image , agent_email , _id} = property || {};
     const handleOfferSubmit = async (e) => {
         e.preventDefault();
@@ -22,7 +21,6 @@ export default function OfferPage() {
         }
         const offeredProperty = { date : moment().format('L'), email : user?.email , buyer_name : user?.displayName, agent_email , title, location , image , agent_name , offeredPrice , status : "pending" }
         const res = await axiosSecure.post(`/offeredProperties/${_id}` , offeredProperty);
-        console.log(res.data)
         if(res.data.insertedId){
             Swal.fire(
                 'Offered!',

@@ -24,10 +24,8 @@ export default function UpdateProperty() {
         const desc = data.desc;
         
         const updatedProperty = { title, location, price: { min : minPrice,max : maxPrice }, desc}
-        console.log(updatedProperty)
         
             const res = await axiosSecure.patch(`/properties/${property?._id}`, updatedProperty);
-            console.log(res.data)
             if (res.data.modifiedCount) {
                 Swal.fire(
                     'Done!',

@@ -13,7 +13,6 @@ export default function PropertyDetails() {
     const wishItem = { email: user?.email, agent_name, agent_image, title, agent_email, image, location, price, desc, verification_status };
     const handleAddToWishlist = async () => {
         const res = await axiosSecure.post("/wishlist", wishItem);
-        console.log(res.data)
         if (res.data.insertedId) {
             Swal.fire(
                 'Done',

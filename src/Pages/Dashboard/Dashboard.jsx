@@ -13,7 +13,6 @@ import { RiAdvertisementLine } from "react-icons/ri";
 
 export default function Dashboard() {
   const [ role ] = useCheckRole();
-  console.log(role)
   const [wishlist] = useWishlist();
   return (
     <div className="md:px-12 h-screen">

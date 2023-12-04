@@ -19,7 +19,6 @@ export default function Register() {
         handleSubmit,
     } = useForm();
     const onSubmit = async (data) => {
-        console.log(data)
         // const res = await axiosPublic.post(image_hosting_api, { image: data?.image[0] }, {
         //     headers: {
         //         "content-type": "multipart/form-data"
@@ -28,22 +27,20 @@ export default function Register() {
         // console.log(res.data.data.display_url)
         // if (res.data.success) {
             createUser(data.email, data.password)
-                .then(result => {
-                    const loggedUser = result.user;
-                    console.log(loggedUser)
+                .then(() => {
                     updateUserProfile(data?.name)
                         .then(() => {
-                            console.log("user info updated")
+
                         })
                     navigate("/")
                     const userInfo = { name: data?.name, email: data?.email };
                     axiosPublic.post('/users', userInfo)
-                        .then(res => {
-                            console.log(res.data)
+                        .then(() => {
+
                         })
                 })
-                .catch(error => {
-                    console.log(error)
+                .catch(() => {
+                    
                 })
         // }
 
@@ -53,16 +50,15 @@ export default function Register() {
     const handleOtherLogin = () => {
         googleLogin()
             .then(result => {
-                console.log(result.user)
                 navigate(location.state ? location.state : "/");
                 const userInfo = { name: result?.user?.displayName, email: result?.user?.email }
                 axiosPublic.post('/users', userInfo)
-                    .then(res => {
-                        console.log(res.data)
+                    .then(() => {
+                        
                     })
             })
-            .catch(error => {
-                console.log(error)
+            .catch(() => {
+                
             })
     }
 

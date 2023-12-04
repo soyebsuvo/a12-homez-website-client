@@ -20,7 +20,6 @@ export default function CheckoutForm() {
     useEffect(() => {
         axiosSecure.post('/create-payment-intent', { price: totalPrice })
             .then(res => {
-                console.log(res.data.clientSecret);
                 setClientSecret(res.data.clientSecret);
             })
     }, [axiosSecure, totalPrice])
@@ -61,7 +60,6 @@ export default function CheckoutForm() {
             console.log("Payment Intent", paymentIntent)
         }
         if (paymentIntent.status === "succeeded") {
-            console.log("Transection Id :", paymentIntent.id)
             const paymentInfo = {
                 email: user?.email,
                 name: user?.displayName,
@@ -72,7 +70,6 @@ export default function CheckoutForm() {
                 status: "pending"
             }
             const res = await axiosSecure.post('/payments', paymentInfo);
-            console.log(res.data)
             if (res.data.insertedId) {
                 Swal.fire(
                     "Payment Done",

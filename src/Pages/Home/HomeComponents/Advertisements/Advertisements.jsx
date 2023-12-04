@@ -15,7 +15,7 @@ export default function Advertisements() {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {
-                add?.map( item => <Advertisement key={item.id} item={item}></Advertisement>)
+                add?.map( item => <Advertisement key={item._id} item={item}></Advertisement>)
             }
       </div>
     </div>
