@@ -1,12 +1,12 @@
 import { useQuery } from "@tanstack/react-query"
-import useAxiosPublic from "./useAxiosPublic"
+import useAxiosSecure from "./useAxiosSecure";
 
 export default function useUnverifiedProperties() {
-    const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure();
     const {data : unvefiedProperties , isPending : isUnvefiedPropertiesPending , refetch} = useQuery({
         queryKey : ['UnverifiedProperties'],
         queryFn : async () => {
-            const res = await axiosPublic.get(`/unverifiedProperties`);
+            const res = await axiosSecure.get(`/unverifiedProperties`);
             return res.data;
         }
     })

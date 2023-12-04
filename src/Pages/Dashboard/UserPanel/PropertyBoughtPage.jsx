@@ -1,9 +1,10 @@
+import { Link } from "react-router-dom";
 import Loader from "../../../Components/Loader";
 import usePropertyBought from "../../../Hooks/usePropertyBought"
 
 export default function PropertyBoughtPage() {
     const [propertyBought, isPending] = usePropertyBought();
-    const totalPrice = propertyBought.reduce((total , item) => total + parseInt(item.offeredPrice), 0)
+    const totalPrice = propertyBought?.reduce((total, item) => total + parseInt(item.offeredPrice), 0)
     if (isPending) {
         return <Loader></Loader>
     }
@@ -14,7 +15,9 @@ export default function PropertyBoughtPage() {
             </div>
             <div className="flex justify-between items-center mb-5">
                 <h3 className="text-2xl font-bold">Total Price : ${totalPrice.toFixed(2)}</h3>
-                <button className="text-white bg-[#EB6753] hover:bg-[#EB6753] focus:ring-4 focus:outline-none focus:ring-[#EB675399] font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-[#EB6753] dark:hover:bg-[#EB6753] dark:focus:ring-[#EB675399]">Pay</button>
+                {totalPrice ? <Link to="/dashboard/payment">
+                    <button className="text-white bg-[#EB6753] hover:bg-[#EB6753] focus:ring-4 focus:outline-none focus:ring-[#EB675399] font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-[#EB6753] dark:hover:bg-[#EB6753] dark:focus:ring-[#EB675399]">Pay</button>
+                </Link> : <button disabled className="text-white bg-[#EB675368] hover:bg-[#EB675368] focus:ring-4 focus:outline-none focus:ring-[#EB675399] font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-[#EB6753] dark:hover:bg-[#EB6753] dark:focus:ring-[#EB675399]">Pay</button>}
             </div>
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -28,7 +31,7 @@ export default function PropertyBoughtPage() {
                             </th>
                             <th scope="col" className="px-3 py-3">
                                 Agent
-                            </th>                            
+                            </th>
                             <th scope="col" className="px-3 py-3">
                                 Price
                             </th>
@@ -39,7 +42,7 @@ export default function PropertyBoughtPage() {
                     </thead>
                     <tbody>
                         {
-                            propertyBought.map((item , index) => <tr key={item?._id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            propertyBought.map((item, index) => <tr key={item?._id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                 <td className="w-2 p-4 text-center">
                                     {index + 1}
                                 </td>
@@ -58,7 +61,7 @@ export default function PropertyBoughtPage() {
                                 </td>
                                 <td className="px-3 py-4">
                                     {item?.status}
-                                </td>                                
+                                </td>
                             </tr>)
                         }
 

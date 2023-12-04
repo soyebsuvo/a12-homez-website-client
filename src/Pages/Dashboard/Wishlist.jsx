@@ -2,12 +2,12 @@ import Loader from "../../Components/Loader";
 import { FaTrash } from "react-icons/fa";
 import Swal from "sweetalert2";
 import useWishlist from "../../Hooks/useWishlist";
-import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { Link } from "react-router-dom";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 
 export default function Wishlist() {
-    const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure();
     const [wishlist, isPending, refetch] = useWishlist();
     const handleRemoveItem = async (id) => {
         Swal.fire({
@@ -20,7 +20,7 @@ export default function Wishlist() {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axiosPublic.delete(`/wishlist/${id}`)
+                axiosSecure.delete(`/wishlist/${id}`)
                     .then(res => {
                         console.log(res.data)
                         if (res.data.deletedCount > 0) {

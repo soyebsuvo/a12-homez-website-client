@@ -13,10 +13,8 @@ export default function UpdateProperty() {
         handleSubmit,
     } = useForm();
     const { user } = useContext(AuthContext);
-    // const axiosPublic = useAxiosPublic();
     const axiosSecure = useAxiosSecure()
     const navigate = useNavigate();
-    // console.log(property)
     const handleUpdateProperty = async (data) => {
         const title = data.title;
         const location = data.location;

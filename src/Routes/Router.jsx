@@ -20,6 +20,8 @@ import ManageProperties from "../Pages/Dashboard/AdminPanel/ManageProperties";
 import ManageUsers from "../Pages/Dashboard/AdminPanel/ManageUsers";
 import AdminRoute from "./AdminRoute";
 import AgentRoute from "./AgentRoute";
+import Payment from "../Pages/Dashboard/UserPanel/Payment";
+import MySoldProperties from "../Pages/Dashboard/AgentPanel/MySoldProperties";
 
 const router = createBrowserRouter([
     {
@@ -74,6 +76,10 @@ const router = createBrowserRouter([
                 path : "/dashboard/propertyBought",
                 element : <PrivateRoute><PropertyBoughtPage></PropertyBoughtPage></PrivateRoute>
             },
+            {
+                path : '/dashboard/payment',
+                element : <Payment></Payment>
+            },
             // agent route 
             {
                 path : "/dashboard/addProperty",
@@ -91,6 +97,10 @@ const router = createBrowserRouter([
             {
                 path : "/dashboard/requestedProperties",
                 element : <AgentRoute><RequestedProperties></RequestedProperties></AgentRoute>
+            },
+            {
+                path : "/dashboard/mySoldProperties",
+                element : <AgentRoute><MySoldProperties></MySoldProperties></AgentRoute>
             },
             // admin routes 
             {

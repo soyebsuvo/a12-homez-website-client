@@ -1,9 +1,7 @@
 import { useContext } from "react";
-// import { useNavigate } from "react-router-dom"
 import { AuthContext } from "../../../Providers/AuthProvider/AuthProvider";
 import moment from "moment/moment";
 import Swal from "sweetalert2";
-// import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -14,10 +12,8 @@ export default function AddPropertyPage() {
         handleSubmit,
     } = useForm();
     const { user } = useContext(AuthContext);
-    // const axiosPublic = useAxiosPublic();
     const axiosSecure = useAxiosSecure()
     const navigate = useNavigate();
-    // console.log(property)
     const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
     const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
     const handleAddProperty = async (data) => {

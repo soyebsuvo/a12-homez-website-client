@@ -2,17 +2,17 @@ import { useContext } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom"
 import { AuthContext } from "../../../Providers/AuthProvider/AuthProvider";
 import moment from "moment/moment";
-import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 export default function OfferPage() {
     const {user} = useContext(AuthContext);
-    const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure();
     const property = useLoaderData();
     const navigate = useNavigate();
     // console.log(property)
-    const { agent_name, title, location, price , image , agent_email } = property || {};
+    const { agent_name, title, location, price , image , agent_email , _id} = property || {};
     const handleOfferSubmit = async (e) => {
         e.preventDefault();
         const offeredPrice = e.target.price.value;
@@ -20,7 +20,7 @@ export default function OfferPage() {
             return toast.error("Insert price between the price range")
         }
         const offeredProperty = { date : moment().format('L'), email : user?.email , buyer_name : user?.displayName, agent_email , title, location , image , agent_name , offeredPrice , status : "pending" }
-        const res = await axiosPublic.post("/offeredProperties" , offeredProperty);
+        const res = await axiosSecure.post(`/offeredProperties/${_id}` , offeredProperty);
         console.log(res.data)
         if(res.data.insertedId){
             Swal.fire(

@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProvider/AuthProvider";
-// import { useQuery } from "@tanstack/react-query";
-// import useAxiosPublic from "../../Hooks/useAxiosPublic";
+
 import { FaLuggageCart, FaUsers } from "react-icons/fa";
 import Loader from "../../Components/Loader";
 import useWishlist from "../../Hooks/useWishlist";
@@ -14,12 +13,10 @@ import useUsers from "../../Hooks/useUsers";
 export default function MyProfile() {
     const [ requestedProperties ] = useRequestedProperty();
     const [ role ] = useCheckRole();
-    // const axiosPublic = useAxiosPublic();
     const { user } = useContext(AuthContext);
   const [ wishlist , isPending] = useWishlist();
   const [ allProperties , isAllPropertiesPending ] = useAllProperties();
   const [ users ] = useUsers();
-    // console.log(wishlistCount)
     if(isPending || isAllPropertiesPending){
         return <Loader></Loader>
     }
